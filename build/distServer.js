@@ -1,22 +1,38 @@
-import express from 'express'
-import path from 'path'
-import open from 'open'
+import bs from 'browser-sync'
+import webpack from 'webpack'
+import webpackDevMiddleware from 'webpack-dev-middleware'
+import stripAnsi from 'strip-ansi'
 import compression from 'compression'
 
-const PORT = 3000
-const app = express()
+import webpackConfig from '../webpack.config.dev.js'
+var bundler = webpack(webpackConfig)
+var browserSync = bs.create()
 
-app.use(compression())
-app.use(express.static('dist'))
-
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, '../dist/index.html'))
+bundler.plugin('done', function (stats) {
+  if (stats.hasErrors() || stats.hasWarnings()) {
+    return browserSync.sockets.emit('fullscreen:message', {
+      title: 'Webpack Error:',
+      body: stripAnsi(stats.toString()),
+      timeout: 100000
+    })
+  }
+  browserSync.reload()
 })
 
-app.listen(PORT, function (err) {
-  if (err) {
-    console.log(err)
-  } else {
-    open('http://localhost:' + PORT)
-  }
+browserSync.init({
+  server: 'dist',
+  open: true,
+  logFileChanges: false,
+  middleware: [
+    compression(),
+    webpackDevMiddleware(bundler, {
+      publicPath: webpackConfig.output.publicPath,
+      stats: {colors: true}
+    })
+  ],
+  plugins: ['bs-fullscreen-message'],
+  files: [
+    'app/css/*.css',
+    'app/*.html'
+  ]
 })

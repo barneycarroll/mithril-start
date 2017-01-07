@@ -20,7 +20,7 @@ bundler.plugin('done', function (stats) {
 
 browserSync.init({
   server: 'src',
-  open: false,
+  open: true,
   logFileChanges: false,
   middleware: [
     webpackDevMiddleware(bundler, {
