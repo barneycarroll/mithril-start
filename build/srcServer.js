@@ -1,35 +1,36 @@
-import express from 'express'
-import path from 'path'
-import open from 'open'
+import bs from 'browser-sync'
 import webpack from 'webpack'
-import config from '../webpack.config.dev.js'
+import webpackDevMiddleware from 'webpack-dev-middleware'
+import stripAnsi from 'strip-ansi'
 
-const PORT = 3000
-const app = express()
+import webpackConfig from '../webpack.config.dev.js'
+var bundler = webpack(webpackConfig)
+var browserSync = bs.create()
 
-const compiler = webpack(config)
-
-app.use(require('webpack-dev-middleware')(compiler, {
-  noInfo: true,
-  publicPath: config.output.publicPath
-}))
-
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, '../src/index.html'))
-})
-
-app.get('/users', function (req, res) {
-  res.json([
-    {'id': 1, 'firstName': 'Bob', 'lastName': 'Smith', 'email': 'bob@gmail.com'},
-    {'id': 2, 'firstName': 'Tammy', 'lastName': 'Norton', 'email': 'tnorton@yahoo.com'},
-    {'id': 3, 'firstName': 'Tina', 'lastName': 'Lee', 'email': 'lee.tina@hotmail.com'}
-  ])
-})
-
-app.listen(PORT, function (err) {
-  if (err) {
-    console.log(err)
-  } else {
-    open('http://localhost:' + PORT)
+bundler.plugin('done', function (stats) {
+  if (stats.hasErrors() || stats.hasWarnings()) {
+    return browserSync.sockets.emit('fullscreen:message', {
+      title: 'Webpack Error:',
+      body: stripAnsi(stats.toString()),
+      timeout: 100000
+    })
   }
+  browserSync.reload()
+})
+
+browserSync.init({
+  server: 'src',
+  open: false,
+  logFileChanges: false,
+  middleware: [
+    webpackDevMiddleware(bundler, {
+      publicPath: webpackConfig.output.publicPath,
+      stats: {colors: true}
+    })
+  ],
+  plugins: ['bs-fullscreen-message'],
+  files: [
+    'app/css/*.css',
+    'app/*.html'
+  ]
 })
