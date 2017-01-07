@@ -1,2 +1,2 @@
 require('babel-register')()
-require.extensions['css'] = function(){}
+require.extensions['css'] = function () {}
