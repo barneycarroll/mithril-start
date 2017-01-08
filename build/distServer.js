@@ -4,7 +4,7 @@ import webpackDevMiddleware from 'webpack-dev-middleware'
 import stripAnsi from 'strip-ansi'
 import compression from 'compression'
 
-import webpackConfig from '../webpack.config.dev.js'
+import webpackConfig from '../webpack.config.prod.js'
 var bundler = webpack(webpackConfig)
 var browserSync = bs.create()
 
