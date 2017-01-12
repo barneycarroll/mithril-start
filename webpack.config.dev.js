@@ -1,7 +1,8 @@
-import path from 'path'
-import webpack from 'webpack'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-import ResourceHintWebpackPlugin from 'resource-hints-webpack-plugin'
+var path = require('path')
+var webpack = require('webpack')
+var HtmlWebpackPlugin = require('html-webpack-plugin')
+var ResourceHintWebpackPlugin = require('resource-hints-webpack-plugin')
+var BabiliPlugin = require('babili-webpack-plugin')
 
 export default {
   devtool: 'inline-source-map',
@@ -16,6 +17,7 @@ export default {
     filename: '[name].[chunkhash].js'
   },
   plugins: [
+    new BabiliPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
@@ -29,7 +31,7 @@ export default {
   ],
   module: {
     loaders: [
-      {test: /\.js$/, exclude: /node_modules/, loaders: ['babel-loader']},
+      {test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader', options: {cacheDirectory: true}},
       {test: /\.scss$/, use: ['style-loader', 'css-loader?sourceMap', 'sass-loader?sourceMap']}
     ]
   }

@@ -3,7 +3,7 @@ var path = require('path')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var WebpackMd5Hash = require('webpack-md5-hash')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
-// var FaviconsWebpackPlugin = require('favicons-webpack-plugin'
+var FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 var ResourceHintWebpackPlugin = require('resource-hints-webpack-plugin')
 var BabiliPlugin = require('babili-webpack-plugin')
 
@@ -43,22 +43,22 @@ module.exports = {
       inject: true,
       trackJSToken: '1e10579fcef54461b1a1b08ba546ac52'
     }),
-    // new FaviconsWebpackPlugin({
-    //   logo: path.join(__dirname, 'src/img/hammock-logo.png'),
-    //   title: 'Dont\'t Work',
-    //   icons: {
-    //     android: true,
-    //     appleIcon: true,
-    //     appleStartup: true,
-    //     coast: true,
-    //     favicons: true,
-    //     firefox: true,
-    //     opengraph: true,
-    //     twitter: true,
-    //     yandex: true,
-    //     windows: true
-    //   }
-    // }),
+    new FaviconsWebpackPlugin({
+      logo: path.join(__dirname, 'src/img/hammock-logo.png'),
+      title: 'Dont\'t Work',
+      icons: {
+        android: true,
+        appleIcon: true,
+        appleStartup: true,
+        coast: true,
+        favicons: true,
+        firefox: true,
+        opengraph: true,
+        twitter: true,
+        yandex: true,
+        windows: true
+      }
+    }),
     new ResourceHintWebpackPlugin()
   ],
   module: {
