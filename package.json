@@ -14,7 +14,7 @@
     "security-check": "nsp check",
     "localtunnel": "lt --port 3000",
     "share": "npm-run-all --parallel open:src localtunnel",
-    "test": "ospec",
+    "test": "babel-node node_modules/.bin/ospec",
     "test:watch": "npm run test -- --watch",
     "generate-mock-data": "babel-node build/generateMockData",
     "prestart-mockapi": "npm run generate-mock-data",
@@ -23,7 +23,9 @@
     "prebuild": "npm-run-all clean-dist test lintjs",
     "build": "webpack --config 'webpack.config.prod.js'",
     "postbuild": "babel-node build/distServer.js",
-    "deploy": "surge ./dist"
+    "deploy": "surge ./dist",
+    "cover": "istanbul cover --print both node_modules/.bin/ospec && npm run check-coverage",
+    "check-coverage": "istanbul check-coverage --branches -9"
   },
   "repository": {
     "type": "git",
@@ -60,6 +62,7 @@
     "favicons-webpack-plugin": "0.0.7",
     "html-webpack-plugin": "^2.22.0",
     "install": "^0.8.4",
+    "istanbul": "^0.4.5",
     "jsdom": "^9.8.0",
     "json-schema-faker": "^0.3.6",
     "json-server": "^0.8.22",
