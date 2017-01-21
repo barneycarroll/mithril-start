@@ -1,14 +1,8 @@
-var o = require('mithril/ospec/ospec')
+var o = require('ospec')
 
-o("addition", function() {
-    o(1 + 1).equals(2)
+o('addition', function () {
+  o(1 + 1).equals(2)
 })
-o("subtraction", function() {
-    o(1 - 1).notEquals(2)
-})
-
-o.spec('math', function () {
-  o('addition works', function () {
-    o(10).equals(10)
-  })
+o('subtraction', function () {
+  o(1 - 1).notEquals(2)
 })

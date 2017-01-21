@@ -1,5 +1,5 @@
 import m from 'mithril'
-import {getUsers} from './api/userApi'
+import {getUsers} from './data/userApi'
 
 export default {
   oninit (vnode) {
