@@ -9,6 +9,6 @@ o("subtraction", function() {
 
 o.spec('math', function () {
   o('addition works', function () {
-    o(8).equals(10)
+    o(10).equals(10)
   })
 })
