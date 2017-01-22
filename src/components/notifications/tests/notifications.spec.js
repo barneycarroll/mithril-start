@@ -1,5 +1,4 @@
 import o from 'ospec'
-import functionTest from '../services/function-test'
 
 o('addition', function () {
   o(1 + 1).equals(2)
