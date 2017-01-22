@@ -16,6 +16,8 @@
     "share": "npm-run-all --parallel open:src localtunnel",
     "test": "babel-node node_modules/.bin/ospec",
     "test:watch": "npm run test -- --watch",
+    "cover": "NODE_ENV=test nyc --no-cache ospec",
+    "check-coverage": "istanbul check-coverage --branches -9",
     "generate-mock-data": "babel-node build/generateMockData",
     "prestart-mockapi": "npm run generate-mock-data",
     "start-mockapi": "json-server --watch src/data/db.json --port 3002",
@@ -23,9 +25,18 @@
     "prebuild": "npm-run-all clean-dist test lintjs",
     "build": "webpack --config 'webpack.config.prod.js'",
     "postbuild": "babel-node build/distServer.js",
-    "deploy": "surge ./dist",
-    "cover": "istanbul cover --print both node_modules/.bin/ospec && npm run check-coverage",
-    "check-coverage": "istanbul check-coverage --branches -9"
+    "deploy": "surge ./dist"
+  },
+  "nyc": {
+    "require": [
+      "babel-register"
+    ],
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ],
+    "sourceMap": false,
+    "instrument": false
   },
   "repository": {
     "type": "git",
@@ -41,6 +52,7 @@
     "babel-cli": "^6.16.0",
     "babel-core": "^6.17.0",
     "babel-loader": "^6.2.5",
+    "babel-plugin-istanbul": "^3.1.2",
     "babel-preset-latest": "^6.16.0",
     "babel-register": "^6.16.3",
     "babili-webpack-plugin": "0.0.7",
@@ -62,7 +74,6 @@
     "favicons-webpack-plugin": "0.0.7",
     "html-webpack-plugin": "^2.22.0",
     "install": "^0.8.4",
-    "istanbul": "^0.4.5",
     "jsdom": "^9.8.0",
     "json-schema-faker": "^0.3.6",
     "json-server": "^0.8.22",
@@ -72,6 +83,7 @@
     "node-sass": "^4.1.1",
     "npm-run-all": "^3.1.1",
     "nsp": "^2.6.2",
+    "nyc": "^10.1.2",
     "ospec": "^1.2.3",
     "postcss-loader": "^1.2.1",
     "resource-hints-webpack-plugin": "0.0.1",
