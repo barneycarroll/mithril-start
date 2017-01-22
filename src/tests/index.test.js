@@ -9,5 +9,5 @@ o('subtraction', function () {
 })
 
 o('import works', function () {
-  o(functionTest("lol")).equals("lol")
+  o(functionTest('lol')).equals('lol')
 })

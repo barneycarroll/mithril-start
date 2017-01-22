@@ -33,7 +33,8 @@
     ],
     "reporter": [
       "lcov",
-      "text-summary"
+      "text-summary",
+      "html"
     ],
     "sourceMap": false,
     "instrument": false
