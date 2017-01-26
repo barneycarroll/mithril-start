@@ -1,0 +1,14 @@
+.navbarLinkList {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style-type: none;
+  padding: 0;
+}
+
+.navbar-list-item-link {
+  border-bottom: 3px solid black;
+  font-family: sans-serif;
+  text-decoration: none;
+  margin: 10px 5px;
+}

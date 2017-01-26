@@ -1,7 +1,5 @@
-import './index.scss'
-
 import m from 'mithril'
-import component from './component'
+import routes from './routes'
 
-m.mount(document.body, component)
-
+m.route.prefix('')
+m.route(document.body, '/', routes)

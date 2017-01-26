@@ -3,6 +3,7 @@ var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ResourceHintWebpackPlugin = require('resource-hints-webpack-plugin')
 var BabiliPlugin = require('babili-webpack-plugin')
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 export default {
   devtool: 'inline-source-map',
@@ -13,11 +14,12 @@ export default {
   target: 'web',
   output: {
     path: path.join(__dirname, 'src'),
-    publicPath: '/',
+    publicPath: '/assets',
     filename: '[name].[chunkhash].js'
   },
   plugins: [
     new BabiliPlugin(),
+    new ExtractTextPlugin("[name]-[chunkhash].css"),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
@@ -32,7 +34,10 @@ export default {
   module: {
     loaders: [
       {test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader', options: {cacheDirectory: true}},
-      {test: /\.scss$/, use: ['style-loader', 'css-loader?sourceMap', 'sass-loader?sourceMap']}
-    ]
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract('css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]')
+      }
+    ],
   }
 }

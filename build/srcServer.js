@@ -1,36 +1,30 @@
-import bs from 'browser-sync'
-import webpack from 'webpack'
-import webpackDevMiddleware from 'webpack-dev-middleware'
-import stripAnsi from 'strip-ansi'
+import './mithrilSetup'
+import csshook from 'css-modules-require-hook/preset'
+import express from 'express'
 
-import webpackConfig from '../webpack.config.dev.js'
-var bundler = webpack(webpackConfig)
-var browserSync = bs.create()
+import open from 'open'
+import routes from '../src/routes'
+import render from './render'
 
-bundler.plugin('done', function (stats) {
-  if (stats.hasErrors() || stats.hasWarnings()) {
-    return browserSync.sockets.emit('fullscreen:message', {
-      title: 'Webpack Error:',
-      body: stripAnsi(stats.toString()),
-      timeout: 100000
-    })
+const port = 3000;
+const app = express();
+
+
+
+app.use(render({
+    routes: routes
+}))
+
+
+
+
+
+
+
+app.listen(port, function(err) {
+  if (err) {
+    console.log(err);
+  } else {
+    open('http://localhost:' + port);
   }
-  browserSync.reload()
-})
-
-browserSync.init({
-  server: 'src',
-  open: true,
-  logFileChanges: false,
-  middleware: [
-    webpackDevMiddleware(bundler, {
-      publicPath: webpackConfig.output.publicPath,
-      stats: {colors: true}
-    })
-  ],
-  plugins: ['bs-fullscreen-message'],
-  files: [
-    'app/css/*.css',
-    'app/*.html'
-  ]
-})
+});

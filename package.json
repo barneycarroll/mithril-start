@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm-run-all --parallel security-check open:src lintjs:watch lintsass:watch start-mockapi",
-    "open:src": "babel-node build/srcServer.js",
+    "start": "npm-run-all --parallel security-check open:src lintjs:watch test:watch lintsass:watch start-mockapi",
+    "open:src": "NODE_ENV=node babel-node build/srcServer.js",
     "lintjs": "esw 'src/**/*.js'",
     "lintjs:watch": "npm run lintjs -- --watch",
     "prelintsass": "stylefmt --config .stylelintrc --recursive 'src/**/*.scss'",
@@ -53,6 +53,7 @@
     "babel-cli": "^6.16.0",
     "babel-loader": "^6.2.10",
     "babel-plugin-istanbul": "^3.1.2",
+    "babel-plugin-transform-require-ignore": "0.0.2",
     "babel-preset-latest": "^6.16.0",
     "babel-register": "^6.16.3",
     "babili-webpack-plugin": "0.0.7",
@@ -61,22 +62,28 @@
     "chalk": "^1.1.3",
     "compression": "^1.6.2",
     "css-loader": "^0.26.1",
+    "css-modules-require-hook": "^4.0.5",
     "eslint": "^3.8.1",
     "eslint-config-standard": "^6.2.1",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-standard": "^2.0.1",
     "eslint-watch": "^2.1.14",
+    "express": "^4.14.0",
     "extract-text-webpack-plugin": "^2.0.0-beta.4",
     "favicons-webpack-plugin": "0.0.7",
     "html-webpack-plugin": "^2.22.0",
+    "isomorphic-style-loader": "^1.1.0",
+    "jsdom": "^9.9.1",
     "json-schema-faker": "^0.3.6",
     "json-server": "^0.8.22",
     "localtunnel": "^1.8.1",
+    "modular-css": "github:tivac/modular-css#pull/234/head",
     "node-sass": "^4.3.0",
     "npm-run-all": "^3.1.1",
     "nsp": "^2.6.2",
     "nyc": "^10.1.2",
+    "open": "0.0.5",
     "ospec": "^1.2.3",
     "resource-hints-webpack-plugin": "0.0.1",
     "rimraf": "^2.5.4",
@@ -91,6 +98,7 @@
     "webpack-md5-hash": "^0.0.5"
   },
   "dependencies": {
-    "mithril": "^1.0.0-rc.8"
+    "mithril": "^1.0.0-rc.8",
+    "mithril-node-render": "^1.0.1-5"
   }
 }
