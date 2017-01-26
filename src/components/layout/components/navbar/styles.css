@@ -6,8 +6,8 @@
   padding: 0;
 }
 
-.navbar-list-item-link {
-  border-bottom: 3px solid black;
+.navbarListItemLink {
+  border-bottom: 3px solid red;
   font-family: sans-serif;
   text-decoration: none;
   margin: 10px 5px;

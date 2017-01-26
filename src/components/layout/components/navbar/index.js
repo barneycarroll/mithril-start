@@ -1,4 +1,4 @@
-import css from './styles.css'
+import c from './styles.css'
 import m from 'mithril'
 
 const navbarLinks = [
@@ -16,10 +16,10 @@ export default {
   view (vnode) {
     return m('.navbar', [
       m('.navbar-inner', [
-        m('ul', { className: css.navbarLinkList }, [
+        m('ul.' + c.navbarLinkList, [
           navbarLinks.map((element, index) => {
             return m('li.navbar-list-item', [
-              m('a.navbar-list-item-link', { href: element.link, oncreate: m.route.link }, element.text)
+              m('a.' + c.navbarListItemLink, { href: element.link, oncreate: m.route.link }, element.text)
             ])
           })
         ])

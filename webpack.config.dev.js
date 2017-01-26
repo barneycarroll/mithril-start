@@ -19,7 +19,7 @@ export default {
   },
   plugins: [
     new BabiliPlugin(),
-    new ExtractTextPlugin("[name]-[chunkhash].css"),
+    new ExtractTextPlugin("[name].[chunkhash].css"),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
@@ -35,6 +35,7 @@ export default {
     loaders: [
       {test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader', options: {cacheDirectory: true}},
       {
+
         test: /\.css$/,
         loader: ExtractTextPlugin.extract('css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]')
       }

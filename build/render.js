@@ -48,7 +48,8 @@ module.exports = function (opts) {
         query: req.query,
         protocol: req.protocol,
         host: req.get('host'),
-        title: ''
+        title: '',
+        description: ''
       }
 
 
@@ -56,11 +57,26 @@ module.exports = function (opts) {
       var render = mod.render || function (component) { return component }
       Promise.resolve()
       .then(() => onmatch(req.params, req.url))
-      .then(() => render({attrs: req.params}))
+      .then(() => {
+        var component = mod.render({attrs: req.params})
+        console.log(mod)
+        attrs.title = mod.title
+        attrs.description = mod.description
+        return component;
+      })
       .then(function(mod){
         return mithrilNodeRender(mod, attrs)
         .then((html) => {
           createDocument((err, window) => {
+            if (attrs.title){
+              window.document.title = attrs.title
+            }
+            if (attrs.description){
+              var meta = window.document.createElement('meta')
+              meta.name = "description"
+              meta.content = attrs.description
+              window.document.getElementsByTagName('head')[0].appendChild(meta);
+            }
             var app = window.document.getElementById('app')
             app.innerHTML = html
             res.send(window.document.documentElement.outerHTML.toString())

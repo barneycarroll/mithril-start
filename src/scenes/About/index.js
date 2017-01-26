@@ -4,9 +4,10 @@ import layout from '../../components/layout'
 
 export default {
   onmatch () {
-    document.title = 'Home - Mithril'
+
   },
   render (vnode) {
+    this.title = "About - Mithril"
     return m(layout, vnode.attrs, m(about, vnode.attrs))
   }
 }

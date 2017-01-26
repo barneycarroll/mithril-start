@@ -3,6 +3,6 @@ import About from './scenes/About'
 
 export default {
   '/': Home,
-  '/:number': Home,
+  '/home/:number': Home,
   '/about': About
 }
