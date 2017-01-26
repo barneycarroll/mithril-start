@@ -6,9 +6,9 @@ if (typeof require.ensure !== 'function') require.ensure = require('isomorphic-e
 export default {
   onmatch () {
     var resolver = this
-    return new Promise(function(resolve) {
-      require.ensure(['./home.js'], function(require) {
-        resolver.home = require('./home.js').default;
+    return new Promise((resolve) => {
+      require.ensure(['./home.js'], function (require) {
+        resolver.home = require('./home.js').default
         resolve()
       })
     })
