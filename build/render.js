@@ -6,7 +6,6 @@ import path from 'path'
 import mithrilNodeRender from 'mithril-node-render'
 import config from '../webpack.config.dev'
 
-
 const app = express()
 global.m = m
 
@@ -30,51 +29,36 @@ function createDocument(callback){
   })
 }
 
-module.exports = function (opts) {
-  const config = opts || {}
-  const { routes = {}, head = [] } = config
-
-
+module.exports = function ({routes}) {
   Object.keys(routes).forEach(route => {
-    const mod = routes[route]
+    const resolver = routes[route]
     app.get(route, (req, res, next) => {
       res.type('html')
-      if (req.session && req.session.user) {
-        return res.end((base('')))
-      }
 
       const attrs = {
-        params: req.params,
-        query: req.query,
-        protocol: req.protocol,
-        host: req.get('host'),
-        title: '',
-        description: ''
+        title: null,
+        description: null
       }
 
 
-      var onmatch = mod.onmatch || function () { return mod }
-      var render = mod.render || function (component) { return component }
       Promise.resolve()
-      .then(() => onmatch(req.params, req.url))
+      .then(() => resolver.onmatch(req.params, req.url))
       .then(() => {
-        var component = mod.render({attrs: req.params})
-        console.log(mod)
-        attrs.title = mod.title
-        attrs.description = mod.description
+        var component = resolver.render({attrs: req.params})
         return component;
       })
-      .then(function(mod){
-        return mithrilNodeRender(mod, attrs)
+
+      .then(function(component){
+        return mithrilNodeRender(component, attrs)
         .then((html) => {
           createDocument((err, window) => {
-            if (attrs.title){
-              window.document.title = attrs.title
+            if (resolver.title){
+              window.document.title = resolver.title
             }
-            if (attrs.description){
+            if (resolver.description){
               var meta = window.document.createElement('meta')
               meta.name = "description"
-              meta.content = attrs.description
+              meta.content = resolver.description
               window.document.getElementsByTagName('head')[0].appendChild(meta);
             }
             var app = window.document.getElementById('app')

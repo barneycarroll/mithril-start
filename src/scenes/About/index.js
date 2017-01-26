@@ -7,7 +7,7 @@ export default {
 
   },
   render (vnode) {
-    this.title = "About - Mithril"
+    this.title = 'About - Mithril'
     return m(layout, vnode.attrs, m(about, vnode.attrs))
   }
 }
