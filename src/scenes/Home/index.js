@@ -5,18 +5,17 @@ if (typeof require.ensure !== 'function') require.ensure = require('isomorphic-e
 
 export default {
   onmatch () {
-    var resolver = this
     return new Promise((resolve) => {
-      require.ensure(['./home.js'], function (require) {
-        resolver.home = require('./home.js').default
+      require.ensure([], (require) => {
+        this.home = require('./home.js').default
         resolve()
       })
     })
   },
   render (vnode) {
-    var resolver = this
     this.title = 'Home - Mithril'
     this.description = 'test the meta description'
-    return m(layout, vnode.attrs, m(resolver.home, vnode.attrs))
+    document.title = this.title
+    return m(layout, vnode.attrs, m(this.home, vnode.attrs))
   }
 }

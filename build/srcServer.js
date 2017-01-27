@@ -1,4 +1,8 @@
 import './mithrilSetup'
+import webpack from 'webpack'
+import path from 'path'
+import webpackDevMiddleware from 'webpack-dev-middleware'
+import config from '../webpack.config.dev'
 import csshook from 'css-modules-require-hook/preset'
 import express from 'express'
 import routes from '../src/routes'
@@ -7,12 +11,29 @@ import render from './render'
 const port = 3000
 const app = express()
 
-app.use(render({
-    routes: routes
-}))
+const compiler = webpack(config);
 
-app.listen(port, function(err) {
-  if (err) {
-    console.log(err);
-  }
+var webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
+  publicPath: config.output.publicPath
 })
+
+app.use(webpackDevMiddlewareInstance);
+
+
+webpackDevMiddlewareInstance.waitUntilValid(() => {
+  var file = webpackDevMiddlewareInstance.fileSystem.readFileSync(path.join(compiler.outputPath,'index.html'))
+  app.use(render({
+    html: file.toString(),
+    routes: routes
+  }))
+
+  app.listen(port, function(err) {
+    if (err) {
+      console.log(err);
+    }
+  })
+})
+
+
+
+
