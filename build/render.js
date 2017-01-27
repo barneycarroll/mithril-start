@@ -1,6 +1,5 @@
 import express from 'express'
 import m from 'mithril'
-import jsdom from 'jsdom'
 import mithrilNodeRender from 'mithril-node-render'
 global.m = m
 
