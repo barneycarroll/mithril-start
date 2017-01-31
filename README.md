@@ -1,24 +1,22 @@
 # mithril-start
 The Mithril 1.0 starter project for high quality web applications
 
-# Dependencies
+## Dependencies
 
-# Code Splitting
+## Code Splitting
 
-# Server side rendering
+## Server side rendering
 
-# Folder Structure
+## Folder Structure
 
-# Route Resolvers
+## Route Resolvers
 
-# Useful Components
+## Useful Components
 
-# Data Retrieval / API Requests Layer
+## Data Retrieval / API Requests Layer
 
-# Data Access / Local State Management
+## Data Access / Local State Management
 
-# Linting
+## Linting
 
-# Testing with ospec and coverage integration
-
-#
+## Testing with ospec and coverage integration
