@@ -9,7 +9,7 @@ export default {
   devtool: 'inline-source-map',
   entry: {
     main: path.resolve(__dirname, 'src/index'),
-    vendor: path.resolve(__dirname, 'src/vendor')
+    vendor: 'mithril'
   },
   target: 'web',
   output: {
