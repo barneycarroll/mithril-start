@@ -1,7 +1,7 @@
 import m from 'mithril'
 import layout from '../../components/layout'
 
-if (typeof require.ensure !== 'function') require.ensure = require('isomorphic-ensure')({dirname: __dirname})
+if (typeof require.ensure !== 'function') require.ensure = (d, c) => c(require)
 
 export default {
   onmatch () {

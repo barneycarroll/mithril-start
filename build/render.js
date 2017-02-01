@@ -23,7 +23,6 @@ module.exports = function ({html, routes}) {
             "{content}":page
           }
           var file = html.replace(/{\w+}/g, (all) => replacements[all] || all)
-          console.log(file)
           res.send(file)
         })
         .catch(err => console.log(err))

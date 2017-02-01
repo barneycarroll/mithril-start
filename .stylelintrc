@@ -1,4 +1,7 @@
 {
   "defaultSeverity": "warning",
-  "extends": "stylelint-config-standard",
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-css-modules"
+  ],
 }

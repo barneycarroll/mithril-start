@@ -7,15 +7,15 @@ export default {
   onmatch () {
     return new Promise((resolve) => {
       require.ensure([], (require) => {
-        this.home = require('./home.js').default
+        this.courses = require('./courses.js').default
         resolve()
       })
     })
   },
   render (vnode) {
-    this.title = 'Home - Mithril'
-    this.description = 'test the meta description'
+    this.title = 'Courses - Mithril'
+    this.description = 'Courses Page'
     document.title = this.title
-    return m(layout, vnode.attrs, m(this.home, vnode.attrs))
+    return m(layout, vnode.attrs, m(this.courses, vnode.attrs))
   }
 }
