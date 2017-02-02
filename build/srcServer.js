@@ -14,6 +14,7 @@ const app = express()
 const compiler = webpack(config);
 
 var webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
+  compress: true,
   publicPath: config.output.publicPath
 })
 

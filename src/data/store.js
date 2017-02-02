@@ -2,9 +2,9 @@ import {createStore, applyMiddleware} from 'redux'
 import rootReducer from './index'
 import reduxImmutableStateInvariant from 'redux-immutable-state-invariant'
 
-var store;
-export default function (initialState){
-  if (store === undefined){
+var store
+export default function (initialState) {
+  if (store === undefined) {
     store = createStore(
       rootReducer,
       initialState,

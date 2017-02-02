@@ -11,7 +11,7 @@ module.exports = {
   devtool: 'source-map',
   entry: {
     main: path.resolve(__dirname, 'src/index'),
-    vendor: path.resolve(__dirname, 'src/vendor')
+    vendor: ['mithril', 'redux']
   },
   target: 'web',
   output: {
@@ -61,6 +61,12 @@ module.exports = {
     // }),
     new ResourceHintWebpackPlugin()
   ],
+  resolve: {
+    modules: [path.resolve(__dirname, "src"), "node_modules"],
+    alias: {
+      'data': path.resolve(__dirname, 'src/data')
+    }
+  },
   module: {
     loaders: [
       {test: /\.js$/, exclude: /node_modules/, loaders: ['babel-loader']},

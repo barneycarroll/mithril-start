@@ -1,5 +1,6 @@
 import m from 'mithril'
 import store from '../../data/store'
+import {createCourse} from '../../data/courses/actions'
 export default {
   course: {
     title: null
@@ -7,15 +8,11 @@ export default {
   view (vnode) {
     return m('.courses', [
       m('h1', 'Courses'),
-      m('p', JSON.stringify(this.course)),
 
       m('form', {
         onsubmit: (e) => {
           e.preventDefault()
-          store().dispatch({
-            type: 'CREATE_COURSE',
-            course: this.course
-          })
+          store().dispatch(createCourse(this.course))
         }
       }, [
         m('input', {
@@ -28,8 +25,12 @@ export default {
           type: 'submit'
         }, 'Submit')
       ]),
-      m('div', JSON.stringify(store().getState())),
-      console.log(JSON.stringify(store().getState()))
+
+      m('.courses-list', [
+        store().getState().courses.map((course, index) => {
+          return m('div', index + '-' + course.title)
+        })
+      ])
     ])
   }
 }
