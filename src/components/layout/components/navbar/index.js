@@ -9,6 +9,10 @@ const navbarLinks = [
   {
     text: 'About',
     link: '/about'
+  },
+  {
+    text: 'Users',
+    link: '/users'
   }
 ]
 

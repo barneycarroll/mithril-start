@@ -11,7 +11,7 @@ module.exports = {
   devtool: 'source-map',
   entry: {
     main: path.resolve(__dirname, 'src/index'),
-    vendor: ['mithril', 'redux']
+    vendor: ['mithril', 'redux-immutable-state-invariant', 'redux']
   },
   target: 'web',
   output: {

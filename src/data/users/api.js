@@ -1,6 +1,6 @@
 import m from 'mithril'
 
-import getBaseUrl from './baseUrl'
+import getBaseUrl from '../baseUrl'
 
 const baseUrl = getBaseUrl()
 
@@ -16,8 +16,6 @@ function get (url) {
   return m.request({
     url: baseUrl + url
   })
-  .then(onSuccess)
-  .catch(onError)
 }
 
 function del (url) {
@@ -25,14 +23,4 @@ function del (url) {
     method: 'DELETE',
     url: baseUrl + url
   })
-  .then(onSuccess)
-  .catch(onError)
-}
-
-function onSuccess (response) {
-  return response
-}
-
-function onError (err) {
-  console.log(err)
 }

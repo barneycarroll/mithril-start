@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux'
-import courses from './courses/reducer'
+import users from './users/reducer'
 
 const rootReducer = combineReducers({
-  courses
+  users
 })
 
 export default rootReducer

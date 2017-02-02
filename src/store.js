@@ -1,6 +1,7 @@
 import {createStore, applyMiddleware} from 'redux'
-import rootReducer from './index'
+import rootReducer from './data/index'
 import reduxImmutableStateInvariant from 'redux-immutable-state-invariant'
+import thunk from 'redux-thunk'
 
 var store
 export default function (initialState) {
@@ -8,7 +9,7 @@ export default function (initialState) {
     store = createStore(
       rootReducer,
       initialState,
-      applyMiddleware(reduxImmutableStateInvariant())
+      applyMiddleware(thunk, reduxImmutableStateInvariant())
       )
   } else {
     return store

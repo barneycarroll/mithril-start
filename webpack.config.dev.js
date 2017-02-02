@@ -6,10 +6,10 @@ var BabiliPlugin = require('babili-webpack-plugin')
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 export default {
-  devtool: 'source-map',
+  devtool: 'inline-source-map',
   entry: {
     main: path.resolve(__dirname, 'src/index'),
-    vendor: 'mithril'
+    vendor: ['mithril', 'redux-immutable-state-invariant', 'redux', 'babel-polyfill']
   },
   target: 'web',
   output: {

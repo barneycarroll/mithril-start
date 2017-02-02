@@ -1,3 +1,4 @@
+import 'babel-polyfill'
 import m from 'mithril'
 import routes from './routes'
 import './styles.css'
