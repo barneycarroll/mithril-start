@@ -1,0 +1,17 @@
+.userCard {
+  font-family: 'Rubik', sans-serif;
+  font-size: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 150px;
+}
+
+.userCard > * {
+  width: 33.3%;
+}
+
+.id {
+  font-size: 20px;
+  color: lightgrey;
+}

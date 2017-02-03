@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>{title}</title>
+  <title>{{title}}</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="description" content="{description}">
-
+  <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
 
 </head>
 <body>
   <div id="app">
-  {content}
+  {{content}}
   </div>
+  <script>
+    // WARNING: See the following for Security isues with this approach:
+    // http://redux.js.org/docs/recipes/ServerRendering.html#security-considerations
+    window.__STATE_IS_PRELOADED__ = true
+    window.__PRELOADED_STATE__ = {{state}}
+  </script>
 </body>
 </html>

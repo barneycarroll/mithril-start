@@ -9,7 +9,7 @@ export default {
   devtool: 'inline-source-map',
   entry: {
     main: path.resolve(__dirname, 'src/index'),
-    vendor: 'mithril'
+    vendor: ['mithril', 'redux-immutable-state-invariant', 'redux', 'babel-polyfill']
   },
   target: 'web',
   output: {
@@ -18,8 +18,11 @@ export default {
     filename: '[name].[chunkhash].js'
   },
   plugins: [
-    new BabiliPlugin(),
-    new ExtractTextPlugin("[name].[chunkhash].css"),
+    //new BabiliPlugin(),
+    new ExtractTextPlugin({
+      filename:"[name].[chunkhash].css",
+      allChunks: true
+    }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
@@ -37,7 +40,13 @@ export default {
       {
 
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]')
+        loaders: ExtractTextPlugin.extract({
+            fallbackLoader: 'style-loader',
+            loader: 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+            options: {
+              sourceMap: true
+            }
+          }),
       }
     ],
   }

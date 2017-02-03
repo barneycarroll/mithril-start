@@ -5,12 +5,12 @@ if (typeof require.ensure !== 'function') require.ensure = (d, c) => c(require)
 
 async function getJs () {
   return await require.ensure([], (require) => {
-    return require('./about.js').default
+    return require('./userCreate.js').default
   })
 }
 
 export default {
-  async onmatch () {
+  async onmatch ({id}) {
     const [ component ] = await Promise.all([
       getJs()
     ])
@@ -18,9 +18,10 @@ export default {
     this.component = component
     window.__STATE_IS_PRELOADED__ = false
   },
-  render (vnode) {
-    this.title = 'About - Mithril'
+  render ({attrs}) {
+    this.title = 'Create - User - Mithril'
+    this.description = 'User Create Page'
     document.title = this.title
-    return m(layout, vnode.attrs, m(this.component, vnode.attrs))
+    return m(layout, attrs, m(this.component, attrs))
   }
 }

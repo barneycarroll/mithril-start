@@ -1,9 +1,11 @@
 import express from 'express'
 import m from 'mithril'
+import store from '../src/store'
 import mithrilNodeRender from 'mithril-node-render'
 global.m = m
 
 const app = express()
+
 
 module.exports = function ({html, routes}) {
   Object.keys(routes).forEach(route => {
@@ -18,12 +20,12 @@ module.exports = function ({html, routes}) {
         return mithrilNodeRender(component)
         .then(page => {
           var replacements = {
-            "{title}": resolver.title,
-            "{description}": resolver.description,
-            "{content}":page
+            "{{title}}": resolver.title,
+            "{{description}}": resolver.description,
+            "{{content}}": page,
+            "{{state}}": JSON.stringify(store().getState())
           }
-          var file = html.replace(/{\w+}/g, (all) => replacements[all] || all)
-          console.log(file)
+          var file = html().replace(/{{\w+}}/g, (all) => replacements[all] || all)
           res.send(file)
         })
         .catch(err => console.log(err))

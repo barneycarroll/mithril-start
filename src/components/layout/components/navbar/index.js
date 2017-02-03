@@ -1,4 +1,4 @@
-import c from './styles.css'
+import c from './navbar.css'
 import m from 'mithril'
 
 const navbarLinks = [
@@ -9,12 +9,16 @@ const navbarLinks = [
   {
     text: 'About',
     link: '/about'
+  },
+  {
+    text: 'Users',
+    link: '/users'
   }
 ]
 
 export default {
   view (vnode) {
-    return m('.navbar', [
+    return m('div.' + c.navbar, [
       m('.navbar-inner', [
         m('ul.' + c.navbarLinkList, [
           navbarLinks.map((element, index) => {

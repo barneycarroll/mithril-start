@@ -14,16 +14,20 @@ const app = express()
 const compiler = webpack(config);
 
 var webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
+  compress: true,
   publicPath: config.output.publicPath
 })
 
 app.use(webpackDevMiddlewareInstance);
 
-
+console.log(routes)
 webpackDevMiddlewareInstance.waitUntilValid(() => {
-  var file = webpackDevMiddlewareInstance.fileSystem.readFileSync(path.join(compiler.outputPath,'index.html'))
+
+  function getHtml () {
+    return webpackDevMiddlewareInstance.fileSystem.readFileSync(path.join(compiler.outputPath,'index.html')).toString()
+  }
   app.use(render({
-    html: file.toString(),
+    html: getHtml,
     routes: routes
   }))
 

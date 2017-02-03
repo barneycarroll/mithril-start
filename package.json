@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm-run-all --parallel security-check run:src lintjs:watch test:watch lintstyles:watch start-mockapi",
-    "run:src": "nodemon build/srcServer.js --exec babel-node --presets latest",
+    "run:src": "nodemon build/srcServer.js --exec babel-node --presets latest --ignore src/",
     "lintjs": "esw 'src/**/*.js'",
     "lintjs:watch": "npm run lintjs -- --watch",
     "prelintstyles": "stylefmt --config .stylelintrc --recursive 'src/**/*.css'",
@@ -54,6 +54,7 @@
     "babel-loader": "^6.2.10",
     "babel-plugin-istanbul": "^3.1.2",
     "babel-plugin-transform-require-ignore": "0.0.2",
+    "babel-polyfill": "^6.22.0",
     "babel-preset-latest": "^6.16.0",
     "babel-register": "^6.16.3",
     "babili-webpack-plugin": "0.0.7",
@@ -83,12 +84,14 @@
     "nsp": "^2.6.2",
     "nyc": "^10.1.2",
     "ospec": "^1.2.3",
+    "redux-immutable-state-invariant": "^1.2.4",
     "resource-hints-webpack-plugin": "0.0.1",
     "rimraf": "^2.5.4",
     "strip-ansi": "^3.0.1",
     "style-loader": "^0.13.1",
     "stylefmt": "^5.0.3",
     "stylelint": "^7.7.1",
+    "stylelint-config-css-modules": "^0.1.0",
     "stylelint-config-standard": "^15.0.1",
     "webpack": "^2.1.0-beta.25",
     "webpack-dev-middleware": "^1.8.4",
@@ -96,6 +99,9 @@
   },
   "dependencies": {
     "mithril": "^1.0.0-rc.8",
-    "mithril-node-render": "^1.0.1-5"
+    "mithril-node-render": "^1.0.1-5",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0",
+    "w3c-xmlhttprequest": "^2.1.2"
   }
 }
