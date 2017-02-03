@@ -4,31 +4,56 @@ export const schema = {
     'users': {
       'type': 'array',
       'minItems': 3,
-      'maxItems': 5,
-      'items': {
-        'type': 'object',
-        'properties': {
-          'id': {
-            'type': 'number',
-            'unique': true,
-            'minimum': 1
+      'maxItems': 12,
+      "items": {
+        type: 'object',
+        properties: {
+          id: {
+            type: 'integer',
+            faker: 'random.number'
           },
-          'firstName': {
-            'type': 'string',
-            'faker': 'name.firstName'
+          name: {
+            type: 'string',
+            faker: 'name.findName'
           },
-          'lastName': {
-            'type': 'string',
-            'faker': 'name.lastName'
+          email: {
+            type: 'string',
+            format: 'email',
+            faker: 'internet.email'
           },
-          'email': {
-            'type': 'string',
-            'faker': 'internet.email'
+          address: {
+            type: 'object',
+            properties: {
+              streetName: {
+                type: 'string',
+                faker: 'address.streetAddress'
+              },
+              city: {
+                type: 'string',
+                faker: 'address.city'
+              },
+              county: {
+                type: 'string',
+                faker: 'address.county'
+              },
+              county: {
+                type: 'string',
+                faker: 'address.county'
+              },
+              zipCode: {
+                type: 'string',
+                faker: 'address.zipCode'
+              }
+            },
+            required: ['streetName', 'zipCode']
           }
         },
-        required: ['id', 'firstName', 'lastName', 'email']
+        required: ['id', 'name', 'email']
       }
     }
   },
   required: ['users']
 }
+
+
+
