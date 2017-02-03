@@ -1,15 +1,11 @@
 import m from 'mithril'
 import store from '../../store'
 import {saveUser} from '../../data/users/actions'
-import {getUserById} from '../../data/users/access'
 import userForm from '../../components/userForm'
 
 export default {
   oninit ({state, attrs: {id}}) {
-    var user = id
-              ? getUserById(id)
-              : {}
-    state.user = Object.assign({}, user)
+    state.user = {}
     state.errors = {}
   },
 

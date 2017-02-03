@@ -20,7 +20,7 @@ var webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
 
 app.use(webpackDevMiddlewareInstance);
 
-
+console.log(routes)
 webpackDevMiddlewareInstance.waitUntilValid(() => {
 
   function getHtml () {

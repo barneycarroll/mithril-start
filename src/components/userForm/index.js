@@ -1,5 +1,5 @@
 import m from 'mithril'
-import textInput from '../../../../components/textInput'
+import textInput from '../textInput'
 
 export default {
   view ({attrs: {user, errors, onsubmit}}) {

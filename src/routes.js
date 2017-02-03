@@ -4,6 +4,7 @@ import Home from './scenes/Home'
 import About from './scenes/About'
 import Users from './scenes/Users'
 import User from './scenes/User'
+import UserCreate from './scenes/UserCreate'
 
 store(window.__PRELOADED_STATE__)
 store().subscribe(m.redraw)
@@ -13,5 +14,6 @@ export default {
   '/home/:number': Home,
   '/about': About,
   '/users': Users,
+  '/users/create': UserCreate,
   '/users/:id': User
 }
