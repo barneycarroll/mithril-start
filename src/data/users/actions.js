@@ -1,6 +1,8 @@
 import * as types from '../actionTypes'
 import * as api from './api'
 
+import {beginRequest, completeRequest, thrownRequest} from '../requests/actions'
+
 export function loadUsersSuccess (users) {
   return { type: types.LOAD_USERS_SUCCESS, users }
 }
@@ -42,16 +44,17 @@ export function loadUser (id) {
 }
 
 export function saveUser (user) {
-  console.log('got here')
   return function (dispatch) {
+    dispatch(beginRequest())
     api.saveUser(user)
     .then(savedUser => {
-      console.log('what')
+      dispatch(completeRequest())
       user.id
       ? dispatch(updateUserSuccess(savedUser))
       : dispatch(createUserSuccess(savedUser))
     })
     .catch(e => {
+      dispatch(thrownRequest())
       console.log('error from actions file: ' + e)
     })
   }

@@ -1,5 +1,6 @@
 import c from './navbar.css'
 import m from 'mithril'
+import {getNumberOfPendingRequests} from '../../../../data/requests/access'
 
 const navbarLinks = [
   {
@@ -20,6 +21,7 @@ export default {
   view (vnode) {
     return m('div.' + c.navbar, [
       m('.navbar-inner', [
+        m('span', `requests: ${getNumberOfPendingRequests()}`),
         m('ul.' + c.navbarLinkList, [
           navbarLinks.map((element, index) => {
             return m('li.navbar-list-item', [
