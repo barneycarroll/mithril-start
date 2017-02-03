@@ -25,7 +25,7 @@ module.exports = function ({html, routes}) {
             "{{content}}": page,
             "{{state}}": JSON.stringify(store().getState())
           }
-          var file = html.replace(/{{\w+}}/g, (all) => replacements[all] || all)
+          var file = html().replace(/{{\w+}}/g, (all) => replacements[all] || all)
           res.send(file)
         })
         .catch(err => console.log(err))

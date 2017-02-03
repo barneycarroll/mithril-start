@@ -7,8 +7,8 @@
   height: 150px;
 }
 
-.userCard  > * {
-  flex-grow: 1;
+.userCard > * {
+  width: 33.3%;
 }
 
 .id {

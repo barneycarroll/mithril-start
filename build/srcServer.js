@@ -22,9 +22,12 @@ app.use(webpackDevMiddlewareInstance);
 
 
 webpackDevMiddlewareInstance.waitUntilValid(() => {
-  var file = webpackDevMiddlewareInstance.fileSystem.readFileSync(path.join(compiler.outputPath,'index.html'))
+
+  function getHtml () {
+    return webpackDevMiddlewareInstance.fileSystem.readFileSync(path.join(compiler.outputPath,'index.html')).toString()
+  }
   app.use(render({
-    html: file.toString(),
+    html: getHtml,
     routes: routes
   }))
 

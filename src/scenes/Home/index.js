@@ -12,7 +12,7 @@ async function getJs () {
 export default {
   async onmatch () {
     const [ component ] = await Promise.all([
-      getJs(),
+      getJs()
     ])
 
     this.component = component
@@ -25,5 +25,3 @@ export default {
     return m(layout, vnode.attrs, m(this.component, vnode.attrs))
   }
 }
-
-

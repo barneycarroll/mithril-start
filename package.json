@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm-run-all --parallel security-check run:src lintjs:watch test:watch lintstyles:watch start-mockapi",
-    "run:src": "nodemon build/srcServer.js --exec babel-node --presets latest",
+    "run:src": "nodemon build/srcServer.js --exec babel-node --presets latest --ignore src/",
     "lintjs": "esw 'src/**/*.js'",
     "lintjs:watch": "npm run lintjs -- --watch",
     "prelintstyles": "stylefmt --config .stylelintrc --recursive 'src/**/*.css'",
