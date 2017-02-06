@@ -20,12 +20,12 @@ var webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
 
 app.use(webpackDevMiddlewareInstance);
 
-console.log(routes)
 webpackDevMiddlewareInstance.waitUntilValid(() => {
 
   function getHtml () {
     return webpackDevMiddlewareInstance.fileSystem.readFileSync(path.join(compiler.outputPath,'index.html')).toString()
   }
+
   app.use(render({
     html: getHtml,
     routes: routes

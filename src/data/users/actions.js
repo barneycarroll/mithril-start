@@ -21,24 +21,30 @@ export function updateUserSuccess (user) {
 
 export function loadUsers () {
   return function (dispatch) {
-    api.getUsers()
+    dispatch(beginRequest())
+    return api.getUsers()
     .then(users => {
       dispatch(loadUsersSuccess(users))
+      dispatch(completeRequest())
     })
     .catch(e => {
-      console.log('error from actions file: ' + e)
+      dispatch(thrownRequest())
+      throw Error(e)
     })
   }
 }
 
 export function loadUser (id) {
   return function (dispatch) {
-    api.getUser(id)
+    dispatch(beginRequest())
+    return api.getUser(id)
     .then(user => {
       dispatch(loadUserSuccess(user))
+      dispatch(completeRequest())
     })
     .catch(e => {
-      console.log('error from actions file: ' + e)
+      dispatch(thrownRequest())
+      throw Error(e)
     })
   }
 }
@@ -46,16 +52,16 @@ export function loadUser (id) {
 export function saveUser (user) {
   return function (dispatch) {
     dispatch(beginRequest())
-    api.saveUser(user)
+    return api.saveUser(user)
     .then(savedUser => {
-      dispatch(completeRequest())
       user.id
       ? dispatch(updateUserSuccess(savedUser))
       : dispatch(createUserSuccess(savedUser))
+      dispatch(completeRequest())
     })
     .catch(e => {
       dispatch(thrownRequest())
-      console.log('error from actions file: ' + e)
+      throw Error(e)
     })
   }
 }

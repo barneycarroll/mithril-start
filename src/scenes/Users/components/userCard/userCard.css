@@ -1,17 +1,29 @@
 .userCard {
   font-family: 'Rubik', sans-serif;
-  font-size: 40px;
-  display: flex;
+  font-size: 24px;
   align-items: center;
+  min-height: 50px;
+  padding: 1vw;
+  max-width: 600px;
+  background: white;
+  margin-bottom: 20px;
+  border-radius: 3px;
+  border-bottom: 1px solid lightgrey;
+}
+
+.userInfo {
+  display: flex;
   justify-content: space-between;
-  height: 150px;
 }
 
-.userCard > * {
-  width: 33.3%;
-}
-
-.id {
+.userMeta {
+  width: 100%;
   font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3px;
+}
+
+.userMeta * {
   color: lightgrey;
 }

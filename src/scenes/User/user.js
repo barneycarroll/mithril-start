@@ -1,5 +1,5 @@
 import m from 'mithril'
-import store from '../../store'
+import {store} from '../../store'
 import {saveUser} from '../../data/users/actions'
 import {getUserById} from '../../data/users/access'
 import userForm from '../../components/userForm'
@@ -28,6 +28,6 @@ export default {
 function formSubmit (user) {
   return function (event) {
     event.preventDefault()
-    store().dispatch(saveUser(user))
+    store.dispatch(saveUser(user))
   }
 }
