@@ -1,6 +1,8 @@
 import * as types from '../actionTypes'
 import * as api from './api'
 
+import {beginRequest, completeRequest, thrownRequest} from '../requests/actions'
+
 export function loadUsersSuccess (users) {
   return { type: types.LOAD_USERS_SUCCESS, users }
 }
@@ -19,40 +21,47 @@ export function updateUserSuccess (user) {
 
 export function loadUsers () {
   return function (dispatch) {
-    api.getUsers()
+    dispatch(beginRequest())
+    return api.getUsers()
     .then(users => {
       dispatch(loadUsersSuccess(users))
+      dispatch(completeRequest())
     })
     .catch(e => {
-      console.log('error from actions file: ' + e)
+      dispatch(thrownRequest())
+      throw Error(e)
     })
   }
 }
 
 export function loadUser (id) {
   return function (dispatch) {
-    api.getUser(id)
+    dispatch(beginRequest())
+    return api.getUser(id)
     .then(user => {
       dispatch(loadUserSuccess(user))
+      dispatch(completeRequest())
     })
     .catch(e => {
-      console.log('error from actions file: ' + e)
+      dispatch(thrownRequest())
+      throw Error(e)
     })
   }
 }
 
 export function saveUser (user) {
-  console.log('got here')
   return function (dispatch) {
-    api.saveUser(user)
+    dispatch(beginRequest())
+    return api.saveUser(user)
     .then(savedUser => {
-      console.log('what')
       user.id
       ? dispatch(updateUserSuccess(savedUser))
       : dispatch(createUserSuccess(savedUser))
+      dispatch(completeRequest())
     })
     .catch(e => {
-      console.log('error from actions file: ' + e)
+      dispatch(thrownRequest())
+      throw Error(e)
     })
   }
 }

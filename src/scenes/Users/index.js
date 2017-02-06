@@ -1,5 +1,5 @@
 import m from 'mithril'
-import store from '../../store'
+import {store} from '../../store'
 import {loadUsers} from '../../data/users/actions'
 import layout from '../../components/layout'
 
@@ -12,7 +12,7 @@ async function getJs () {
 }
 
 async function getData () {
-  return window.__STATE_IS_PRELOADED__ || store().dispatch(loadUsers())
+  return window.__STATE_IS_PRELOADED__ || store.dispatch(loadUsers())
 }
 
 export default {

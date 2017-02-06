@@ -1,5 +1,5 @@
 import m from 'mithril'
-import store from '../../store'
+import {store} from '../../store'
 import {saveUser} from '../../data/users/actions'
 import userForm from '../../components/userForm'
 
@@ -24,6 +24,6 @@ export default {
 function formSubmit (user) {
   return function (event) {
     event.preventDefault()
-    store().dispatch(saveUser(user))
+    return store.dispatch(saveUser(user)).catch(() => console.log('error from formsubmission'))
   }
 }
