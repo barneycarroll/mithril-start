@@ -21,20 +21,20 @@ async function getData (id) {
 }
 
 export default {
-  async onmatch ({id}) {
+  async onmatch ({key}) {
     const [ component ] = await Promise.all([
       getJs(),
-      getData(id).catch(() => store.dispatch(thrownRequest()))
+      getData(key).catch(() => store.dispatch(thrownRequest()))
     ])
 
     this.component = component
     window.__STATE_IS_PRELOADED__ = false
   },
   render ({attrs}) {
-    var user = getUserById(attrs.id)
+    var user = getUserById(attrs.key)
     this.title = `${user ? user.name : 'Not Found'} - User - Mithril`
     this.description = 'User Page'
     document.title = this.title
-    return m(layout, attrs, m(this.component, attrs))
+    return m(layout, m(this.component, attrs))
   }
 }

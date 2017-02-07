@@ -24,17 +24,13 @@ export const schema = {
           address: {
             type: 'object',
             properties: {
-              streetName: {
+              streetAddress: {
                 type: 'string',
                 faker: 'address.streetAddress'
               },
               city: {
                 type: 'string',
                 faker: 'address.city'
-              },
-              county: {
-                type: 'string',
-                faker: 'address.county'
               },
               county: {
                 type: 'string',

@@ -1,6 +1,7 @@
 .navbar {
   background: lightblue;
   padding: 20px;
+  position: relative;
 }
 
 .navbarInner {

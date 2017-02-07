@@ -15,5 +15,5 @@ export default {
   '/about': About,
   '/users': Users,
   '/users/create': UserCreate,
-  '/users/:id': User
+  '/users/:key': User
 }

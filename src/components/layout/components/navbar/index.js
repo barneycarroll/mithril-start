@@ -1,7 +1,7 @@
 import c from './navbar.css'
 import m from 'mithril'
 import sidebar from '../sidebar'
-import {getNumberOfPendingRequests} from '../../../../data/requests/access'
+import {getNumberOfPendingRequests, getNumberOfThrownRequests} from '../../../../data/requests/access'
 import requestsPending from '../requestsPending'
 
 const navbarLinks = [
@@ -32,7 +32,10 @@ export default {
         ]),
         m(`.${c.metaInfo}`, [
           getNumberOfPendingRequests()
-          ? m(requestsPending)
+          ? m(requestsPending, {
+            pending: getNumberOfPendingRequests(),
+            thrown: getNumberOfThrownRequests()
+          })
           : null
         ]),
         m(sidebar)

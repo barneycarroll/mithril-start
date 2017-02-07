@@ -1,11 +1,17 @@
 .wrapper {
+  margin: 10px 0;
 }
 
 .label {
+  font-family: Rubik, sans-serif;
+  margin-bottom: 4px;
 }
 
-.field-wrapper {
+.fieldWrapper {
 }
 
 .field {
+  font-size: 14px;
+  padding: 6px;
+  border: 1px solid darkgrey;
 }

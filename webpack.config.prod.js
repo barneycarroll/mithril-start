@@ -11,7 +11,7 @@ module.exports = {
   devtool: 'source-map',
   entry: {
     main: path.resolve(__dirname, 'src/index'),
-    vendor: ['mithril', 'redux-immutable-state-invariant', 'redux']
+    vendor: ['mithril', 'redux-immutable-state-invariant', 'redux', 'babel-polyfill']
   },
   target: 'web',
   output: {
@@ -20,7 +20,6 @@ module.exports = {
     filename: '[name].[chunkhash].js'
   },
   plugins: [
-    new BabiliPlugin(),
     new ExtractTextPlugin('[name].[contenthash].css'),
     new WebpackMd5Hash(),
     new webpack.optimize.CommonsChunkPlugin({

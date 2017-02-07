@@ -1,6 +1,6 @@
 import express from 'express'
 import m from 'mithril'
-import { store, initialiseStore, setAccessibleStore } from '../src/store'
+import {store, initialiseStore, setAccessibleStore} from '../src/store'
 import mithrilNodeRender from 'mithril-node-render'
 global.m = m
 
@@ -12,7 +12,9 @@ module.exports = function ({html, routes}) {
     const resolver = routes[route]
     app.get(route, (req, res, next) => {
       res.type('html')
+
       setAccessibleStore(initialiseStore())
+
       Promise.resolve()
       .then(() => resolver.onmatch(req.params, req.url))
       .then(() => resolver.render({attrs: req.params}))
