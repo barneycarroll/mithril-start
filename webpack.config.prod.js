@@ -5,13 +5,12 @@ var WebpackMd5Hash = require('webpack-md5-hash')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 var ResourceHintWebpackPlugin = require('resource-hints-webpack-plugin')
-var BabiliPlugin = require('babili-webpack-plugin')
 
 module.exports = {
   devtool: 'source-map',
   entry: {
     main: path.resolve(__dirname, 'src/index'),
-    vendor: ['mithril', 'redux-immutable-state-invariant', 'redux', 'babel-polyfill']
+    vendor: ['mithril', 'redux', 'babel-polyfill', 'ramda']
   },
   target: 'web',
   output: {
