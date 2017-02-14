@@ -1,0 +1,33 @@
+{
+  "users": [
+    {
+      "id": 39811,
+      "name": "Estella Bauch",
+      "email": "Elwyn.Armstrong40@gmail.com"
+    },
+    {
+      "id": 41431,
+      "name": "Aurelie Beahan",
+      "email": "Osvaldo54@yahoo.com"
+    },
+    {
+      "id": 94474,
+      "name": "Evalyn Kling Sr.",
+      "email": "Estell34@gmail.com"
+    },
+    {
+      "id": 25413,
+      "name": "Helene Kassulke",
+      "email": "Benny24@gmail.com",
+      "address": {
+        "zipCode": "02865-9112",
+        "streetAddress": "062 Shania Fall"
+      }
+    },
+    {
+      "id": 9152,
+      "name": "Consuelo Will",
+      "email": "Reginald31@yahoo.com"
+    }
+  ]
+}

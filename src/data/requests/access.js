@@ -7,3 +7,11 @@ function requests () {
 export function getNumberOfPendingRequests () {
   return requests().numberPending
 }
+
+export function getNumberOfThrownRequests () {
+  return requests().numberError
+}
+
+export function allPendingHaveThrown () {
+  return requests().numberPending === requests().numberError
+}

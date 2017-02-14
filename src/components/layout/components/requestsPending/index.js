@@ -8,7 +8,18 @@ export default {
       setTimeout(resolve, 500)
     })
   },
-  view (vnode) {
-    return m(`.${c.loading}`, 'Loading')
+  view ({attrs: {thrown, pending}}) {
+    return m(`.${c.loading}`, [
+
+      pending > thrown && m('p', {
+        title: 'Some actions have failed, some are still pending',
+        style: {
+          color: thrown && 'red'
+        }
+      }, 'loading'),
+      thrown > pending && m('p', {
+        title: 'Some actions have failed'
+      }, 'Error')
+    ])
   }
 }

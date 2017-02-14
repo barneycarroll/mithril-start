@@ -10,7 +10,7 @@ export default {
       className: vnode.state.open ? c.open : ''
     }, [
       m('.trigger', [
-        m('button', {
+        m(`button.${c.sidebarButton}`, {
           type: 'button',
           onclick () { vnode.state.open = !vnode.state.open }
         }, 'Actions')

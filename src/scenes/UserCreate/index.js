@@ -1,11 +1,16 @@
 import m from 'mithril'
+import {store} from '../../store'
+import {beginRequest, completeRequest} from '../../data/requests/actions'
 import layout from '../../components/layout'
 
 if (typeof require.ensure !== 'function') require.ensure = (d, c) => c(require)
 
 async function getJs () {
+  store.dispatch(beginRequest())
   return await require.ensure([], (require) => {
-    return require('./userCreate.js').default
+    var js = require('./userCreate.js').default
+    store.dispatch(completeRequest())
+    return js
   })
 }
 
@@ -22,6 +27,6 @@ export default {
     this.title = 'Create - User - Mithril'
     this.description = 'User Create Page'
     document.title = this.title
-    return m(layout, attrs, m(this.component, attrs))
+    return m(layout, m(this.component, attrs))
   }
 }

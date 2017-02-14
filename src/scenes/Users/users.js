@@ -8,7 +8,8 @@ export default {
     return m('.users', [
       m(`header.${c.header}`, [
         m('h1', 'Users'),
-        m(`a.${c.createButton}`, { href: '/users/create', oncreate: m.route.link }, 'Create User')
+        m(`a.${c.createButton}`, { href: '/users/create', oncreate: m.route.link }, 'Create User'),
+        m('a', {href: '/users/090909090909'}, 'testing link')
       ]),
       m('.user-list', [
         getUsersSortedById().map((user, index) => {

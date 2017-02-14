@@ -9,7 +9,7 @@ export default {
   devtool: 'inline-source-map',
   entry: {
     main: path.resolve(__dirname, 'src/index'),
-    vendor: ['mithril', 'redux-immutable-state-invariant', 'redux', 'babel-polyfill']
+    vendor: ['mithril', 'redux-immutable-state-invariant', 'redux', 'babel-polyfill', 'ramda']
   },
   target: 'web',
   output: {

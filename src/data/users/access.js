@@ -6,14 +6,14 @@ function users () {
 
 export function getUserById (id) {
   var user = users().filter(u => {
-    var idInt = parseInt(id)
-    return u.id === idInt
+    return u.id === parseInt(id)
   })
   if (user.length) return user[0]
   return null
 }
 
 export function getUsersSortedById () {
+  console.log(users())
   return users().slice().sort((a, b) => {
     return a.id - b.id
   })
