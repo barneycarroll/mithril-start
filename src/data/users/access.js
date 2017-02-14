@@ -13,7 +13,6 @@ export function getUserById (id) {
 }
 
 export function getUsersSortedById () {
-  console.log(users())
   return users().slice().sort((a, b) => {
     return a.id - b.id
   })

@@ -20,6 +20,5 @@ let validationSpec = {
 }
 
 export default function (model) {
-  console.log (validate(model, validationSpec))
   return validate(model, validationSpec) || {}
 }

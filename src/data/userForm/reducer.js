@@ -25,7 +25,9 @@ export default function (state = initialState, action) {
   const { property, value } = action
   switch (action.type) {
     case types.SET_FORM_USER:
-      return set(user, baseUser(action.user), state)
+      var userForm = set(user, baseUser(action.user), state)
+      userForm.validationErrors = {}
+      return userForm
 
     case types.SET_EMPTY_FORM_USER:
       return merge(state, initialState)
@@ -43,8 +45,7 @@ export default function (state = initialState, action) {
       }
 
     case types.VALIDATE_USER_FORM:
-      var validation = validate(state.user)
-      return set(errors, validation, state)
+      return set(errors, validate(state.user), state)
 
     case types.UPDATE_FORM_USER:
       var computed = lensPath(property.split('.'))

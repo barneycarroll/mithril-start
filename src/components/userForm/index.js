@@ -15,7 +15,6 @@ export default {
     state.form = getUserFormData
   },
   view ({state: {form}}) {
-    console.log(form().validationErrors)
     return m('form', {
       onsubmit
     }, [
