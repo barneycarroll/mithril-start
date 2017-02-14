@@ -3,7 +3,7 @@ import {store} from '../../store'
 import {getUserById} from '../../data/users/access'
 import {getUserFormData} from '../../data/userForm/access'
 import {saveUser} from '../../data/users/actions'
-import {setFormUser, updateFormUser, validateUserForm, setEmptyFormUser} from '../../data/userForm/actions'
+import {setFormUser, updateFormUser, validateUserForm, validateUserField, setEmptyFormUser} from '../../data/userForm/actions'
 import textInput from '../textInput'
 
 export default {
@@ -15,6 +15,7 @@ export default {
     state.form = getUserFormData
   },
   view ({state: {form}}) {
+    console.log(form().validationErrors)
     return m('form', {
       onsubmit
     }, [
@@ -24,7 +25,7 @@ export default {
         placeholder: 'Joe Bloggs',
         value: form().user.name,
         oninput: updateFormState,
-        onchange: validateForm(form().user),
+        onchange: validateField,
         errors: form().validationErrors.name
       }),
       m(textInput, {
@@ -34,7 +35,7 @@ export default {
         placeholder: 'hello@joebloggs.com',
         value: form().user.email,
         oninput: updateFormState,
-        onchange: validateForm(form().user),
+        onchange: validateField,
         errors: form().validationErrors.email
       }),
       m(textInput, {
@@ -43,7 +44,7 @@ export default {
         placeholder: '62 Baker Street',
         value: form().user.address.streetAddress,
         oninput: updateFormState,
-        onchange: validateForm(form().user),
+        onchange: validateField,
         errors: form().validationErrors['address.streetAddress']
       }),
       m('button', {
@@ -68,9 +69,7 @@ function updateFormState (event) {
   store.dispatch(updateFormUser(event))
 }
 
-function validateForm(user){
-  return function(event){
-    event.preventDefault()
-    store.dispatch(validateUserForm(user))
-  }
+function validateField (event) {
+  event.preventDefault()
+  store.dispatch(validateUserField(event))
 }

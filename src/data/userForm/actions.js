@@ -8,6 +8,10 @@ export function setEmptyFormUser () {
   return { type: types.SET_EMPTY_FORM_USER }
 }
 
+export function validateUserField({ target: { name} }){
+  return { type: types.VALIDATE_USER_FIELD, property: name }
+}
+
 export function validateUserForm(){
   return { type: types.VALIDATE_USER_FORM }
 }

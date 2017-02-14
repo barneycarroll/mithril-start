@@ -50,8 +50,14 @@
     },
     {
       "id": 71987,
-      "name": "Celine Daugherty",
-      "email": "Dorian33@hotmail.com"
+      "name": "Celine Daughe",
+      "email": "Dorian33@hotmail.com",
+      "address": {
+        "streetAddress": "s",
+        "city": "",
+        "county": "",
+        "zipCode": ""
+      }
     }
   ]
 }
