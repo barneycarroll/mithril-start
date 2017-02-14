@@ -1,7 +1,16 @@
 import * as types from '../actionTypes'
 import * as api from './api'
-import {beginRequest, completeRequest, thrownRequest} from '../requests/actions'
+import {store} from '../../store'
+import {beginRequest, completeRequest, throwRequest} from '../requests/actions'
 import {getUserFormData} from '../userForm/access'
+
+export function boundLoadUsersSuccess (users) { store.dispatch(loadUsersSuccess(users)) }
+export function boundLoadUserSuccess (user) { store.dispatch(loadUserSuccess(user)) }
+export function boundCreateUserSuccess (user) { store.dispatch(createUserSuccess(user)) }
+export function boundUpdateUserSuccess (user) { store.dispatch(updateUserSuccess(user)) }
+export function boundLoadUsers () { return store.dispatch(loadUsers()) }
+export function boundLoadUser (id) { return store.dispatch(loadUser(id)) }
+export function boundSaveUser () { return store.dispatch(saveUser()) }
 
 export function loadUsersSuccess (users) {
   return { type: types.LOAD_USERS_SUCCESS, users }
@@ -19,18 +28,6 @@ export function updateUserSuccess (user) {
   return { type: types.UPDATE_USER_SUCCESS, user }
 }
 
-export function setFormUser (user) {
-  return { type: types.SET_FORM_USER, user }
-}
-
-export function setEmptyFormUser () {
-  return { type: types.SET_EMPTY_FORM_USER }
-}
-
-export function updateFormUser ({ target: { name, value } }) {
-  return { type: types.UPDATE_FORM_USER, property: name, value }
-}
-
 export function loadUsers () {
   return function (dispatch) {
     dispatch(beginRequest())
@@ -40,7 +37,7 @@ export function loadUsers () {
       dispatch(completeRequest())
     })
     .catch(e => {
-      dispatch(thrownRequest())
+      dispatch(throwRequest())
       throw Error(e)
     })
   }
@@ -55,7 +52,7 @@ export function loadUser (id) {
       dispatch(completeRequest())
     })
     .catch(e => {
-      dispatch(thrownRequest())
+      dispatch(throwRequest())
       throw Error(e)
     })
   }
@@ -73,7 +70,7 @@ export function saveUser () {
       dispatch(completeRequest())
     })
     .catch(e => {
-      dispatch(thrownRequest())
+      dispatch(throwRequest())
       throw Error(e)
     })
   }

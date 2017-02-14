@@ -1,10 +1,10 @@
 import m from 'mithril'
-import s from './userCard.css'
+import c from './userCard.css'
 
 export default {
   view ({attrs: {user}}) {
-    return m(`.${s.userCard}`, [
-      m(`.${s.userMeta}`, [
+    return m(`.${c.userCard}`, [
+      m(`.${c.userMeta}`, [
         m('a.id', {
           href: `/users/${user.id}`,
           oncreate: m.route.link
@@ -12,7 +12,7 @@ export default {
         user.address && m('p', 'Address')
       ]),
 
-      m(`.${s.userInfo}`, [
+      m(`.${c.userInfo}`, [
         m('h2.name', user.name),
         m('.address', [
           user.address &&

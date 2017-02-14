@@ -1,20 +1,21 @@
 import m from 'mithril'
-import {store} from '../../store'
 import {getUserById} from '../../data/users/access'
 import {getUserFormData} from '../../data/userForm/access'
-import {saveUser} from '../../data/users/actions'
-import {setFormUser, updateFormUser, validateUserForm, validateUserField, setEmptyFormUser} from '../../data/userForm/actions'
+import {boundSaveUser} from '../../data/users/actions'
+import {boundSetFormUser, boundUpdateFormUser, boundValidateUserForm,
+        boundValidateUserField, boundSetEmptyFormUser} from '../../data/userForm/actions'
 import textInput from '../textInput'
 
 export default {
   oninit ({state, attrs: {key}}) {
     var user = key ? getUserById(key) : null
     user
-    ? store.dispatch(setFormUser(user))
-    : store.dispatch(setEmptyFormUser())
+    ? boundSetFormUser(user)
+    : boundSetEmptyFormUser()
     state.form = getUserFormData
   },
   view ({state: {form}}) {
+    console.log(form())
     return m('form', {
       onsubmit
     }, [
@@ -56,19 +57,19 @@ export default {
 
 function onsubmit (event) {
   event.preventDefault()
-  store.dispatch(validateUserForm())
+  boundValidateUserForm()
   var form = getUserFormData()
-  if (!Object.keys(form.validationErrors).length){
-    store.dispatch(saveUser())
+  if (!Object.keys(form.validationErrors).length) {
+    boundSaveUser()
   }
 }
 
 function updateFormState (event) {
   event.preventDefault()
-  store.dispatch(updateFormUser(event))
+  boundUpdateFormUser(event)
 }
 
 function validateField (event) {
   event.preventDefault()
-  store.dispatch(validateUserField(event))
+  boundValidateUserField(event)
 }

@@ -1,4 +1,4 @@
-import {lensPath,lensProp, clone, set, compose, merge} from 'ramda'
+import {lensPath, lensProp, clone, set, compose, merge} from 'ramda'
 import validate from './validation'
 import * as types from '../actionTypes'
 
@@ -48,9 +48,9 @@ export default function (state = initialState, action) {
       return set(errors, validate(state.user), state)
 
     case types.UPDATE_FORM_USER:
-      var computed = lensPath(property.split('.'))
-      var full = compose(user, computed)
-      return set(full, value, state)
+      var userPropertyLens = lensPath(property.split('.'))
+      var fullUserPropertyLens = compose(user, userPropertyLens)
+      return set(fullUserPropertyLens, value, state)
 
     default:
       return state

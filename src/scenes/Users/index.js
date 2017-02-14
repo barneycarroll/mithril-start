@@ -1,6 +1,5 @@
 import m from 'mithril'
-import {store} from '../../store'
-import {loadUsers} from '../../data/users/actions'
+import {boundLoadUsers} from '../../data/users/actions'
 import layout from '../../components/layout'
 
 if (typeof require.ensure !== 'function') require.ensure = (d, c) => c(require)
@@ -12,7 +11,7 @@ async function getJs () {
 }
 
 async function getData () {
-  return window.__STATE_IS_PRELOADED__ || store.dispatch(loadUsers())
+  return window.__STATE_IS_PRELOADED__ || boundLoadUsers()
 }
 
 export default {

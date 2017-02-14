@@ -14,8 +14,10 @@ let validationSpec = {
     presence: true,
     email: true
   },
-  "address.streetAddress": {
-    presence: true
+  'address.streetAddress': {
+    presence: {
+      message: '^Street is required'
+    }
   }
 }
 

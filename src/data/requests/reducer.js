@@ -11,7 +11,7 @@ export default function (state = initialState, action) {
       return Object.assign({}, state, { numberPending: state.numberPending + 1 })
     case types.COMPLETE_REQUEST:
       return Object.assign({}, state, { numberPending: state.numberPending - 1 })
-    case types.THROWN_REQUEST:
+    case types.THROW_REQUEST:
       return Object.assign({}, state, { numberError: state.numberError + 1 })
     default:
       return state

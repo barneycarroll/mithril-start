@@ -1,30 +1,29 @@
 import m from 'mithril'
-import {store} from '../../store'
-import {loadUser} from '../../data/users/actions'
-import {beginRequest, completeRequest, thrownRequest} from '../../data/requests/actions'
+import {boundLoadUser} from '../../data/users/actions'
+import {boundBeginRequest, boundCompleteRequest, boundThrowRequest} from '../../data/requests/actions'
 import {getUserById} from '../../data/users/access'
 import layout from '../../components/layout'
 
 if (typeof require.ensure !== 'function') require.ensure = (d, c) => c(require)
 
 async function getJs () {
-  store.dispatch(beginRequest())
+  boundBeginRequest()
   return await require.ensure([], (require) => {
     var js = require('./user.js').default
-    store.dispatch(completeRequest())
+    boundCompleteRequest()
     return js
   })
 }
 
 async function getData (id) {
-  return window.__STATE_IS_PRELOADED__ || store.dispatch(loadUser(id))
+  return window.__STATE_IS_PRELOADED__ || boundLoadUser(id)
 }
 
 export default {
   async onmatch ({key}) {
     const [ component ] = await Promise.all([
       getJs(),
-      getData(key).catch(() => store.dispatch(thrownRequest()))
+      getData(key).catch(() => boundThrowRequest())
     ])
 
     this.component = component

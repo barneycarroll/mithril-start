@@ -1,15 +1,14 @@
 import m from 'mithril'
-import {store} from '../../store'
-import {beginRequest, completeRequest} from '../../data/requests/actions'
+import {boundBeginRequest, boundCompleteRequest} from '../../data/requests/actions'
 import layout from '../../components/layout'
 
 if (typeof require.ensure !== 'function') require.ensure = (d, c) => c(require)
 
 async function getJs () {
-  store.dispatch(beginRequest())
+  boundBeginRequest()
   return await require.ensure([], (require) => {
     var js = require('./userCreate.js').default
-    store.dispatch(completeRequest())
+    boundCompleteRequest()
     return js
   })
 }
