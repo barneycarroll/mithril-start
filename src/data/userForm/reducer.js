@@ -1,4 +1,5 @@
 import {lensPath, set, compose, merge} from 'ramda'
+import validate from './validation'
 import * as types from '../actionTypes'
 
 var initialState = {
@@ -17,6 +18,7 @@ var initialState = {
 }
 
 const user = lensPath(['user'])
+const errors = lensPath(['validationErrors'])
 const baseUser = merge(initialState.user)
 
 export default function (state = initialState, action) {
@@ -26,6 +28,10 @@ export default function (state = initialState, action) {
 
     case types.SET_EMPTY_FORM_USER:
       return merge(state, initialState)
+
+    case types.VALIDATE_USER_FORM:
+      var errorObject = validate(state.user)
+      return set(errors, errorObject, state)
 
     case types.UPDATE_FORM_USER:
       const { property, value } = action

@@ -1,9 +1,9 @@
 import m from 'mithril'
-import { store } from '../../store'
+import {store} from '../../store'
 import {getUserById} from '../../data/users/access'
 import {getUserFormData} from '../../data/userForm/access'
 import {saveUser} from '../../data/users/actions'
-import {setFormUser, updateFormUser, setEmptyFormUser} from '../../data/userForm/actions'
+import {setFormUser, updateFormUser, validateUserForm, setEmptyFormUser} from '../../data/userForm/actions'
 import textInput from '../textInput'
 
 export default {
@@ -23,7 +23,9 @@ export default {
         label: 'Name',
         placeholder: 'Joe Bloggs',
         value: form().user.name,
-        oninput: updateFormState
+        oninput: updateFormState,
+        onchange: validateForm(form().user),
+        errors: form().validationErrors.name
       }),
       m(textInput, {
         type: 'email',
@@ -31,26 +33,44 @@ export default {
         label: 'Email',
         placeholder: 'hello@joebloggs.com',
         value: form().user.email,
-        oninput: updateFormState
+        oninput: updateFormState,
+        onchange: validateForm(form().user),
+        errors: form().validationErrors.email
       }),
       m(textInput, {
         name: 'address.streetAddress',
         label: 'Street',
         placeholder: '62 Baker Street',
         value: form().user.address.streetAddress,
-        oninput: updateFormState
+        oninput: updateFormState,
+        onchange: validateForm(form().user),
+        errors: form().validationErrors['address.streetAddress']
       }),
-      m('button', { type: 'submit' }, 'Save')
+      m('button', {
+        type: 'submit',
+        disabled: Object.keys(form().validationErrors).length
+      }, 'Save')
     ])
   }
 }
 
 function onsubmit (event) {
   event.preventDefault()
-  store.dispatch(saveUser())
+  store.dispatch(validateUserForm())
+  var form = getUserFormData()
+  if (!Object.keys(form.validationErrors).length){
+    store.dispatch(saveUser())
+  }
 }
 
 function updateFormState (event) {
   event.preventDefault()
   store.dispatch(updateFormUser(event))
+}
+
+function validateForm(user){
+  return function(event){
+    event.preventDefault()
+    store.dispatch(validateUserForm(user))
+  }
 }
