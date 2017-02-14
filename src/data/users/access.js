@@ -1,11 +1,7 @@
 import { store } from '../../store'
 
 function users () {
-  return store.getState().users.list
-}
-
-function form () {
-  return store.getState().users.form
+  return store.getState().users
 }
 
 export function getUserById (id) {
@@ -17,11 +13,8 @@ export function getUserById (id) {
 }
 
 export function getUsersSortedById () {
+  console.log(users())
   return users().slice().sort((a, b) => {
     return a.id - b.id
   })
-}
-
-export function getUserFormData () {
-  return Object.assign({}, form())
 }

@@ -1,7 +1,9 @@
 import m from 'mithril'
 import { store } from '../../store'
-import {getUserFormData, getUserById} from '../../data/users/access'
-import {saveUser, setFormUser, updateFormUser, setEmptyFormUser} from '../../data/users/actions'
+import {getUserById} from '../../data/users/access'
+import {getUserFormData} from '../../data/userForm/access'
+import {saveUser} from '../../data/users/actions'
+import {setFormUser, updateFormUser, setEmptyFormUser} from '../../data/userForm/actions'
 import textInput from '../textInput'
 
 export default {

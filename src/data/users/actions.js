@@ -1,7 +1,7 @@
 import * as types from '../actionTypes'
 import * as api from './api'
 import {beginRequest, completeRequest, thrownRequest} from '../requests/actions'
-import {getUserFormData} from './access'
+import {getUserFormData} from '../userForm/access'
 
 export function loadUsersSuccess (users) {
   return { type: types.LOAD_USERS_SUCCESS, users }

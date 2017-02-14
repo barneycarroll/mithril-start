@@ -1,6 +1,6 @@
 import m from 'mithril'
 import {store} from '../../store'
-import {beginRequest, completeRequest, thrownRequest} from '../../data/requests/actions'
+import {beginRequest, completeRequest} from '../../data/requests/actions'
 import layout from '../../components/layout'
 
 if (typeof require.ensure !== 'function') require.ensure = (d, c) => c(require)
