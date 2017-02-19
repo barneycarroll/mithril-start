@@ -2,27 +2,24 @@ import m from 'mithril'
 import {boundLoadUsers} from '../../data/users/actions'
 import layout from '../../components/layout'
 
-if (typeof require.ensure !== 'function') require.ensure = (d, c) => c(require)
-
-async function getJs () {
-  return await require.ensure([], (require) => {
-    return require('./users.js').default
-  })
+function getJs () {
+  return import('./users.js')
 }
 
-async function getData () {
+function getData () {
   return window.__STATE_IS_PRELOADED__ || boundLoadUsers()
 }
 
 export default {
-  async onmatch () {
-    const [ component ] = await Promise.all([
+  onmatch () {
+    var resolver = this
+    return Promise.all([
       getJs(),
       getData()
-    ])
-
-    this.component = component
-    window.__STATE_IS_PRELOADED__ = false
+    ]).then((data) => {
+      resolver.component = data[0].default
+      window.__STATE_IS_PRELOADED__ = false
+    })
   },
   render (vnode) {
     this.title = 'Users - Mithril'
