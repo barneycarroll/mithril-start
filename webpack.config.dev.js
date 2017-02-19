@@ -18,10 +18,27 @@ export default {
     publicPath: '/assets',
     filename: '[name].[chunkhash].js'
   },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        options: {cacheDirectory: true}
+      },
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
+        })
+      }
+    ],
+  },
   plugins: [
     //new BabiliPlugin(),
     new ExtractTextPlugin({
-      filename:"[name].[chunkhash].css",
+      filename:"[name].[contenthash].css",
       allChunks: true
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
@@ -35,20 +52,4 @@ export default {
     }),
     new ResourceHintWebpackPlugin()
   ],
-  module: {
-    loaders: [
-      {test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader', options: {cacheDirectory: true}},
-      {
-
-        test: /\.css$/,
-        loaders: ExtractTextPlugin.extract({
-            fallbackLoader: 'style-loader',
-            loader: 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
-            options: {
-              sourceMap: true
-            }
-          }),
-      }
-    ],
-  }
 }

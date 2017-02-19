@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm-run-all --parallel security-check run:src lintjs:watch test:watch lintstyles:watch start-mockapi",
-    "run:src": "nodemon build/srcServer.js --exec babel-node --presets latest --ignore src/",
+    "run:src": "nodemon build/srcServer.js --exec babel-node --ignore src/",
     "lintjs": "esw 'src/**/*.js'",
     "lintjs:watch": "npm run lintjs -- --watch",
     "prelintstyles": "stylefmt --config .stylelintrc --recursive 'src/**/*.css'",
@@ -26,6 +26,23 @@
     "build": "webpack -p --config 'webpack.config.prod.js'",
     "postbuild": "NODE_ENV=production babel-node  build/distServer.js",
     "deploy": "surge ./dist"
+  },
+  "babel": {
+    "plugins": [
+      "syntax-dynamic-import",
+      "dynamic-import-node"
+    ],
+    "presets": [
+      "latest"
+    ],
+    "env": {
+      "test": {
+        "plugins": [
+          "istanbul"
+        ]
+      }
+    },
+    "sourceMaps": "inline"
   },
   "nyc": {
     "require": [
@@ -52,6 +69,7 @@
   "devDependencies": {
     "babel-cli": "^6.16.0",
     "babel-loader": "^6.2.10",
+    "babel-plugin-dynamic-import-node": "^1.0.0",
     "babel-plugin-istanbul": "^3.1.2",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-transform-require-ignore": "0.0.2",
@@ -73,7 +91,7 @@
     "eslint-plugin-standard": "^2.0.1",
     "eslint-watch": "^2.1.14",
     "express": "^4.14.0",
-    "extract-text-webpack-plugin": "^2.0.0-beta.4",
+    "extract-text-webpack-plugin": "^2.0.0-rc.3",
     "favicons-webpack-plugin": "0.0.7",
     "html-webpack-plugin": "^2.22.0",
     "isomorphic-ensure": "^1.0.1",
@@ -105,6 +123,7 @@
     "ramda": "^0.23.0",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
+    "reset-css": "^2.2.0",
     "validate.js": "^0.11.1",
     "w3c-xmlhttprequest": "^2.1.2"
   }
