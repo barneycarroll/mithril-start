@@ -3,17 +3,15 @@ import {boundBeginRequest, boundCompleteRequest, boundThrowRequest} from '../../
 import layout from '../../components/layout'
 
 function getJs () {
-  var js
   boundBeginRequest()
-  import('./userCreate.js')
-  .then((val) => {
-    js = val
+  return import('./userCreate.js')
+  .then((module) => {
     boundCompleteRequest()
+    return module.default
   })
   .catch((err) => {
     boundThrowRequest(err)
   })
-  return js
 }
 
 export default {
@@ -22,7 +20,7 @@ export default {
     return Promise.all([
       getJs()
     ]).then((data) => {
-      resolver.component = data[0].default
+      resolver.component = data[0]
       window.__STATE_IS_PRELOADED__ = false
     })
   },
