@@ -6,7 +6,7 @@ import userForm from './userForm/reducer'
 
 const rootReducer = combineReducers({
   requests,
-  auth
+  auth,
   users,
   userForm
 })
