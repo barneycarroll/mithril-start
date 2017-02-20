@@ -28,21 +28,13 @@
     "deploy": "surge ./dist"
   },
   "babel": {
-    "plugins": [
-      "syntax-dynamic-import",
-      "dynamic-import-node"
-    ],
-    "presets": [
-      "latest"
-    ],
     "env": {
       "test": {
         "plugins": [
           "istanbul"
         ]
       }
-    },
-    "sourceMaps": "inline"
+    }
   },
   "nyc": {
     "require": [

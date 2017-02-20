@@ -4,30 +4,32 @@ import {boundBeginRequest, boundCompleteRequest, boundThrowRequest} from '../../
 import {getUserById} from '../../data/users/access'
 import layout from '../../components/layout'
 
-if (typeof require.ensure !== 'function') require.ensure = (d, c) => c(require)
-
-async function getJs () {
+function getJs () {
   boundBeginRequest()
-  return await require.ensure([], (require) => {
-    var js = require('./user.js').default
+  return import('./user.js')
+  .then((module) => {
     boundCompleteRequest()
-    return js
+    return module.default
+  })
+  .catch((err) => {
+    boundThrowRequest(err)
   })
 }
 
-async function getData (id) {
+function getData (id) {
   return window.__STATE_IS_PRELOADED__ || boundLoadUser(id)
 }
 
 export default {
-  async onmatch ({key}) {
-    const [ component ] = await Promise.all([
+  onmatch ({key}) {
+    var resolver = this
+    return Promise.all([
       getJs(),
       getData(key).catch(() => boundThrowRequest())
-    ])
-
-    this.component = component
-    window.__STATE_IS_PRELOADED__ = false
+    ]).then((data) => {
+      resolver.component = data[0]
+      window.__STATE_IS_PRELOADED__ = false
+    })
   },
   render ({attrs}) {
     var user = getUserById(attrs.key)

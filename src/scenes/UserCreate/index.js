@@ -1,26 +1,30 @@
 import m from 'mithril'
-import {boundBeginRequest, boundCompleteRequest} from '../../data/requests/actions'
+import {boundBeginRequest, boundCompleteRequest, boundThrowRequest} from '../../data/requests/actions'
 import layout from '../../components/layout'
 
-if (typeof require.ensure !== 'function') require.ensure = (d, c) => c(require)
-
-async function getJs () {
+function getJs () {
+  var js
   boundBeginRequest()
-  return await require.ensure([], (require) => {
-    var js = require('./userCreate.js').default
+  import('./userCreate.js')
+  .then((val) => {
+    js = val
     boundCompleteRequest()
-    return js
   })
+  .catch((err) => {
+    boundThrowRequest(err)
+  })
+  return js
 }
 
 export default {
-  async onmatch ({id}) {
-    const [ component ] = await Promise.all([
+  onmatch () {
+    var resolver = this
+    return Promise.all([
       getJs()
-    ])
-
-    this.component = component
-    window.__STATE_IS_PRELOADED__ = false
+    ]).then((data) => {
+      resolver.component = data[0].default
+      window.__STATE_IS_PRELOADED__ = false
+    })
   },
   render ({attrs}) {
     this.title = 'Create - User - Mithril'

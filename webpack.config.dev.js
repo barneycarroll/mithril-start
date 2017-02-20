@@ -10,7 +10,7 @@ export default {
   entry: {
     main: path.resolve(__dirname, 'src/index'),
     vendor: ['mithril', 'redux-immutable-state-invariant', 'redux',
-             'redux-thunk', 'babel-polyfill', 'ramda', 'validate.js']
+             'redux-thunk', 'ramda', 'validate.js']
   },
   target: 'web',
   output: {
@@ -24,7 +24,22 @@ export default {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
-        options: {cacheDirectory: true}
+        query: {
+          babelrc: false,
+          cacheDirectory: true,
+          "plugins": [
+            "syntax-dynamic-import",
+          ],
+          "presets": [
+            [
+              "latest", {
+                "es2015": {
+                  "modules": false
+                }
+              }
+            ]
+          ]
+        }
       },
       {
         test: /\.css$/,
