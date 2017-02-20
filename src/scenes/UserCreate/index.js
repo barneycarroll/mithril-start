@@ -1,24 +1,12 @@
 import m from 'mithril'
-import {boundBeginRequest, boundCompleteRequest, boundThrowRequest} from '../../data/requests/actions'
+import {getJs} from '../../utils'
 import layout from '../../components/layout'
-
-function getJs () {
-  boundBeginRequest()
-  return import('./userCreate.js')
-  .then((module) => {
-    boundCompleteRequest()
-    return module.default
-  })
-  .catch((err) => {
-    boundThrowRequest(err)
-  })
-}
 
 export default {
   onmatch () {
     var resolver = this
     return Promise.all([
-      getJs()
+      getJs(() => import('./userCreate.js'))
     ]).then((data) => {
       resolver.component = data[0]
       window.__STATE_IS_PRELOADED__ = false

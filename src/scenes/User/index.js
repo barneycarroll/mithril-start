@@ -1,20 +1,8 @@
 import m from 'mithril'
+import {getJs} from '../../utils'
 import {boundLoadUser} from '../../data/users/actions'
-import {boundBeginRequest, boundCompleteRequest, boundThrowRequest} from '../../data/requests/actions'
 import {getUserById} from '../../data/users/access'
 import layout from '../../components/layout'
-
-function getJs () {
-  boundBeginRequest()
-  return import('./user.js')
-  .then((module) => {
-    boundCompleteRequest()
-    return module.default
-  })
-  .catch((err) => {
-    boundThrowRequest(err)
-  })
-}
 
 function getData (id) {
   return window.__STATE_IS_PRELOADED__ || boundLoadUser(id)
@@ -24,8 +12,8 @@ export default {
   onmatch ({key}) {
     var resolver = this
     return Promise.all([
-      getJs(),
-      getData(key).catch(() => boundThrowRequest())
+      getJs(() => import('./user.js')),
+      getData(key)
     ]).then((data) => {
       resolver.component = data[0]
       window.__STATE_IS_PRELOADED__ = false

@@ -1,17 +1,14 @@
 import m from 'mithril'
+import {getJs} from '../../utils'
 import layout from '../../components/layout'
-
-function getJs () {
-  return import('./about.js')
-}
 
 export default {
   onmatch () {
     var resolver = this
     return Promise.all([
-      getJs(),
+      getJs(() => import('./about.js'))
     ]).then((data) => {
-      resolver.component = data[0].default
+      resolver.component = data[0]
       window.__STATE_IS_PRELOADED__ = false
     })
   },
