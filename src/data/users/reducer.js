@@ -1,8 +1,8 @@
-import {groupBy, last, map, values, pipe, concat, prop} from 'ramda'
+import {groupBy, head, map, values, pipe, concat, prop, tap} from 'ramda'
 import * as types from '../actionTypes'
 
 const mergeIdLists =
-  pipe(concat, groupBy(prop('id')), map(last), values)
+  pipe(concat, tap(console.log), groupBy(prop('id')), tap(console.log), map(head), tap(console.log), values)
 
 export default function (state = [], action) {
   switch (action.type) {
