@@ -4,10 +4,15 @@ The Mithril 1.0 starter project for high quality web applications
 
 ##Getting started
 1)Clone the repo
+
 2)`npm install`
+
 3)`npm start -s`
+
 4)Open localhost:3000
+
 5)Modify for your own needs
+
 6)Report back
 
 ## Dependencies
