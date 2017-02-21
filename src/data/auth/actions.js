@@ -10,9 +10,9 @@ export function loginFail (errors) {
   return { type: types.LOGIN_FAIL, errors }
 }
 
-export function saveUser () {
+export function saveUser (form) {
   return function (dispatch) {
-    //var loginForm = GETCREDS
+    // var loginForm = GETCREDS
     dispatch(beginRequest())
     return api.login(form)
     .then(auth => {

@@ -66,13 +66,35 @@ module.exports = {
     }
   },
   module: {
-    loaders: [
-      {test: /\.js$/, exclude: /node_modules/, loaders: ['babel-loader']},
+    rules: [
       {
-
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        query: {
+          babelrc: false,
+          cacheDirectory: true,
+          "plugins": [
+            "syntax-dynamic-import",
+          ],
+          "presets": [
+            [
+              "latest", {
+                "es2015": {
+                  "modules": false
+                }
+              }
+            ]
+          ]
+        }
+      },
+      {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]')
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
+        })
       }
-    ]
+    ],
   }
 }
