@@ -5,6 +5,7 @@ var WebpackMd5Hash = require('webpack-md5-hash')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 var ResourceHintWebpackPlugin = require('resource-hints-webpack-plugin')
+var CompressionPlugin = require("compression-webpack-plugin")
 
 module.exports = {
   devtool: 'source-map',
@@ -24,6 +25,13 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor'
     }),
+    new CompressionPlugin({
+            asset: "[path].gz[query]",
+            algorithm: "gzip",
+            test: /\.js$|\.html$/,
+            threshold: 0,
+            minRatio: 0.8
+        }),
     new HtmlWebpackPlugin({
       template: 'src/index.html',
       minify: {
