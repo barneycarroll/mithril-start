@@ -60,6 +60,7 @@
   "homepage": "https://github.com/dontwork/start#readme",
   "devDependencies": {
     "babel-cli": "^6.16.0",
+    "babel-eslint": "^7.1.1",
     "babel-loader": "^6.2.10",
     "babel-plugin-dynamic-import-node": "^1.0.0",
     "babel-plugin-istanbul": "^3.1.2",
