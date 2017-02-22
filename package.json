@@ -23,8 +23,9 @@
     "start-mockapi": "json-server --watch src/data/db.json --port 3002",
     "clean-dist": "rimraf ./dist && mkdir dist",
     "prebuild": "npm-run-all clean-dist test lintjs",
-    "build": "webpack -p --config 'webpack.config.prod.js'",
-    "postbuild": "NODE_ENV=production babel-node  build/distServer.js",
+    "build": "webpack -p --config webpack.config.prod.js",
+    "start-dist-server": "babel-node build/distServer.js",
+    "postbuild": "NODE_ENV=production npm-run-all --parallel start-dist-server start-mockapi",
     "deploy": "surge ./dist"
   },
   "babel": {
