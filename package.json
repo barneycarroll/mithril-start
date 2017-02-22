@@ -53,7 +53,7 @@
     "url": "git+https://dontwork@github.com/dontwork/start.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/dontwork/start/issues"
   },
