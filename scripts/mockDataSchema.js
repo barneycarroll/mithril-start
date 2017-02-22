@@ -1,11 +1,11 @@
 export const schema = {
-  'type': 'object',
-  'properties': {
-    'users': {
-      'type': 'array',
-      'minItems': 3,
-      'maxItems': 12,
-      "items": {
+  type: 'object',
+  properties: {
+    users: {
+      type: 'array',
+      minItems: 3,
+      maxItems: 12,
+      items: {
         type: 'object',
         properties: {
           id: {
@@ -50,6 +50,3 @@ export const schema = {
   },
   required: ['users']
 }
-
-
-

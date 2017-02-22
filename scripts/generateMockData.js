@@ -5,7 +5,7 @@ import chalk from 'chalk'
 
 const json = JSON.stringify(jsf(schema))
 
-fs.writeFile('./src/data/db.json', json, function (err) {
+fs.writeFile('./src/data/db.json', json, err => {
   if (err) {
     return console.log(chalk.red(err))
   } else {
