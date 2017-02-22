@@ -13,7 +13,7 @@ const app = express()
 
 const compiler = webpack(config)
 
-var webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
+const webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
   compress: true,
   publicPath: config.output.publicPath
 })
@@ -21,9 +21,8 @@ var webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
 app.use(webpackDevMiddlewareInstance)
 
 webpackDevMiddlewareInstance.waitUntilValid(() => {
-  function getHtml () {
-    return webpackDevMiddlewareInstance.fileSystem.readFileSync(path.join(compiler.outputPath, 'index.html')).toString()
-  }
+  const getHtml = () =>
+    webpackDevMiddlewareInstance.fileSystem.readFileSync(path.join(compiler.outputPath, 'index.html')).toString()
 
   app.use(render({
     html: getHtml,

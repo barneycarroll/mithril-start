@@ -4,7 +4,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ResourceHintWebpackPlugin = require('resource-hints-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-export default {
+module.exports = {
   devtool: 'inline-source-map',
   entry: {
     main: path.resolve(__dirname, '../src/index'),

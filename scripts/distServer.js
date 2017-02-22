@@ -10,9 +10,8 @@ import render from './render'
 const port = 3000
 const app = express()
 
-function getHtml () {
-  return fs.readFileSync(path.resolve(__dirname, '../dist/index.html'), 'utf8')
-}
+const getHtml = () =>
+  fs.readFileSync(path.resolve(__dirname, '../dist/index.html'), 'utf8')
 
 app.use(render({
   html: getHtml,
@@ -21,7 +20,7 @@ app.use(render({
 
 app.use(compression())
 
-var assetsDir = path.resolve(__dirname, '../dist/')
+const assetsDir = path.resolve(__dirname, '../dist/')
 
 app.use(express.static(assetsDir))
 app.use((req, res) => res.sendFile(`${assetsDir}/index.html`))
