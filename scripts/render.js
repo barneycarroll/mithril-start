@@ -6,8 +6,7 @@ global.m = m
 
 const app = express()
 
-
-module.exports = function ({html, routes}) {
+export default ({html, routes}) => {
   Object.keys(routes).forEach(route => {
     const resolver = routes[route]
     app.get(route, (req, res, next) => {
@@ -21,10 +20,10 @@ module.exports = function ({html, routes}) {
       .then(mithrilNodeRender)
       .then(page => {
         var replacements = {
-          "{{title}}": resolver.title,
-          "{{description}}": resolver.description,
-          "{{content}}": page,
-          "{{state}}": JSON.stringify(store.getState())
+          '{{title}}': resolver.title,
+          '{{description}}': resolver.description,
+          '{{content}}': page,
+          '{{state}}': JSON.stringify(store.getState())
         }
         var file = html().replace(/{{\w+}}/g, (all) => replacements[all] || all)
         res.send(file)

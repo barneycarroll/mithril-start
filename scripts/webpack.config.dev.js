@@ -2,19 +2,17 @@ var path = require('path')
 var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ResourceHintWebpackPlugin = require('resource-hints-webpack-plugin')
-var BabiliPlugin = require('babili-webpack-plugin')
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 export default {
   devtool: 'inline-source-map',
   entry: {
-    main: path.resolve(__dirname, 'src/index'),
-    vendor: ['mithril', 'redux-immutable-state-invariant', 'redux',
-             'redux-thunk', 'ramda', 'validate.js']
+    main: path.resolve(__dirname, '../src/index'),
+    vendor: ['mithril', 'redux-immutable-state-invariant', 'redux', 'redux-thunk', 'ramda', 'validate.js']
   },
   target: 'web',
   output: {
-    path: path.join(__dirname, 'src'),
+    path: path.join(__dirname, '../src'),
     publicPath: '/assets',
     filename: '[name].[chunkhash].js'
   },
@@ -27,14 +25,14 @@ export default {
         query: {
           babelrc: false,
           cacheDirectory: true,
-          "plugins": [
-            "syntax-dynamic-import",
+          'plugins': [
+            'syntax-dynamic-import'
           ],
-          "presets": [
+          'presets': [
             [
-              "latest", {
-                "es2015": {
-                  "modules": false
+              'latest', {
+                'es2015': {
+                  'modules': false
                 }
               }
             ]
@@ -48,12 +46,11 @@ export default {
           use: 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
         })
       }
-    ],
+    ]
   },
   plugins: [
-    //new BabiliPlugin(),
     new ExtractTextPlugin({
-      filename:"[name].[contenthash].css",
+      filename: '[name].[contenthash].css',
       allChunks: true
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
@@ -66,5 +63,5 @@ export default {
       inject: true
     }),
     new ResourceHintWebpackPlugin()
-  ],
+  ]
 }

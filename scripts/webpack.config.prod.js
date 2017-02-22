@@ -3,19 +3,19 @@ var path = require('path')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var WebpackMd5Hash = require('webpack-md5-hash')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
-var FaviconsWebpackPlugin = require('favicons-webpack-plugin')
+// var FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 var ResourceHintWebpackPlugin = require('resource-hints-webpack-plugin')
-var CompressionPlugin = require("compression-webpack-plugin")
+var CompressionPlugin = require('compression-webpack-plugin')
 
 module.exports = {
   devtool: 'source-map',
   entry: {
-    main: path.resolve(__dirname, 'src/index'),
+    main: path.resolve(__dirname, '../src/index'),
     vendor: ['mithril', 'redux', 'babel-polyfill', 'ramda']
   },
   target: 'web',
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, '../dist'),
     publicPath: '/',
     filename: '[name].[chunkhash].js'
   },
@@ -26,12 +26,12 @@ module.exports = {
       name: 'vendor'
     }),
     new CompressionPlugin({
-            asset: "[path].gz[query]",
-            algorithm: "gzip",
-            test: /\.js$|\.html$/,
-            threshold: 0,
-            minRatio: 0.8
-        }),
+      asset: '[path].gz[query]',
+      algorithm: 'gzip',
+      test: /\.js$|\.html$/,
+      threshold: 0,
+      minRatio: 0.8
+    }),
     new HtmlWebpackPlugin({
       template: 'src/index.html',
       minify: {
@@ -50,7 +50,7 @@ module.exports = {
       trackJSToken: '1e10579fcef54461b1a1b08ba546ac52'
     }),
     // new FaviconsWebpackPlugin({
-    //   logo: path.join(__dirname, 'src/img/hammock-logo.png'),
+    //   logo: path.join(__dirname, '../src/img/hammock-logo.png'),
     //   title: 'Dont\'t Work',
     //   icons: {
     //     android: true,
@@ -68,9 +68,9 @@ module.exports = {
     new ResourceHintWebpackPlugin()
   ],
   resolve: {
-    modules: [path.resolve(__dirname, "src"), "node_modules"],
+    modules: [path.resolve(__dirname, '../src'), 'node_modules'],
     alias: {
-      'data': path.resolve(__dirname, 'src/data')
+      'data': path.resolve(__dirname, '../src/data')
     }
   },
   module: {
@@ -82,14 +82,14 @@ module.exports = {
         query: {
           babelrc: false,
           cacheDirectory: true,
-          "plugins": [
-            "syntax-dynamic-import",
+          'plugins': [
+            'syntax-dynamic-import'
           ],
-          "presets": [
+          'presets': [
             [
-              "latest", {
-                "es2015": {
-                  "modules": false
+              'latest', {
+                'es2015': {
+                  'modules': false
                 }
               }
             ]
@@ -103,6 +103,6 @@ module.exports = {
           use: 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
         })
       }
-    ],
+    ]
   }
 }

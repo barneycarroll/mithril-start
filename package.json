@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm-run-all --parallel security-check run:src lintjs:watch test:watch lintstyles:watch start-mockapi",
-    "run:src": "nodemon build/srcServer.js --exec babel-node --ignore src/",
+    "run:src": "nodemon scripts/srcServer.js --exec babel-node --ignore src/",
     "lintjs": "esw 'src/**/*.js'",
     "lintjs:watch": "npm run lintjs -- --watch",
     "prelintstyles": "stylefmt --config .stylelintrc --recursive 'src/**/*.css'",
@@ -18,13 +18,13 @@
     "test:watch": "npm run test -- --watch",
     "cover": "NODE_ENV=test nyc --no-cache ospec",
     "check-coverage": "NODE_ENV=test nyc check-coverage --branches -9",
-    "generate-mock-data": "babel-node build/generateMockData",
+    "generate-mock-data": "babel-node scripts/generateMockData",
     "prestart-mockapi": "npm run generate-mock-data",
     "start-mockapi": "json-server --watch src/data/db.json --port 3002",
     "clean-dist": "rimraf ./dist && mkdir dist",
     "prebuild": "npm-run-all clean-dist test lintjs",
-    "build": "webpack -p --config 'webpack.config.prod.js'",
-    "postbuild": "NODE_ENV=production babel-node  build/distServer.js",
+    "build": "webpack -p --config ./scripts/webpack.config.prod.js",
+    "postbuild": "NODE_ENV=production babel-node scripts/distServer.js",
     "deploy": "surge ./dist"
   },
   "babel": {
