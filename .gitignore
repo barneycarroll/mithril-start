@@ -39,5 +39,9 @@ jspm_packages
 # Built project
 dist
 
+# Generated stub data
+src/data/db.json
+
 # Mac files
 .DS_Store
+
