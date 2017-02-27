@@ -20,7 +20,10 @@ module.exports = {
     filename: '[name].[chunkhash].js'
   },
   plugins: [
-    new ExtractTextPlugin('[name].[contenthash].css'),
+    new ExtractTextPlugin({
+      filename: '[name].[contenthash].css',
+      allChunks: true
+    }),
     new WebpackMd5Hash(),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor'
