@@ -9,19 +9,18 @@ function getData () {
 
 export default {
   onmatch () {
-    var resolver = this
     return Promise.all([
       getJs(() => import('./users.js')),
       getData()
     ]).then((data) => {
-      resolver.component = data[0]
       window.__STATE_IS_PRELOADED__ = false
+      return data[0]
     })
   },
   render (vnode) {
     this.title = 'Users - Mithril'
     this.description = 'Users Page'
     document.title = this.title
-    return m(layout, vnode.attrs, m(this.component, vnode.attrs))
+    return m(layout, vnode)
   }
 }
