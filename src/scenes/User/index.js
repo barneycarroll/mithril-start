@@ -10,20 +10,19 @@ function getData (id) {
 
 export default {
   onmatch ({key}) {
-    var resolver = this
     return Promise.all([
       getJs(() => import('./user.js')),
       getData(key)
     ]).then((data) => {
-      resolver.component = data[0]
       window.__STATE_IS_PRELOADED__ = false
+      return data[0]
     })
   },
-  render ({attrs}) {
-    var user = getUserById(attrs.key)
+  render (vnode) {
+    var user = getUserById(vnode.attrs.key)
     this.title = `${user ? user.name : 'Not Found'} - User - Mithril`
     this.description = 'User Page'
     document.title = this.title
-    return m(layout, m(this.component, attrs))
+    return m(layout, vnode)
   }
 }
